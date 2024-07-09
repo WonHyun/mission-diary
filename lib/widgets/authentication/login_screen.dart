@@ -143,7 +143,11 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       borderRadius: Sizes.size12,
                       backgroundColor: Theme.of(context).colorScheme.primary,
                       fontColor: Colors.white,
-                      isActive: _isCorrectInfo,
+                      isActive:
+                          !ref.watch(loginProvider).isLoading && _isCorrectInfo,
+                      centerWidget: ref.watch(loginProvider).isLoading
+                          ? const CircularProgressIndicator.adaptive()
+                          : null,
                     ),
                     Gaps.v40,
                     Row(
