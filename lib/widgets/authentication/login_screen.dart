@@ -8,10 +8,12 @@ import 'package:mission_diary/global/gaps.dart';
 import 'package:mission_diary/global/sizes.dart';
 import 'package:mission_diary/util/valid_util.dart';
 import 'package:mission_diary/widgets/authentication/sign_up_screen.dart';
+import 'package:mission_diary/widgets/authentication/view_model/login_view_model.dart';
 import 'package:mission_diary/widgets/common/constrainted_body.dart';
 import 'package:mission_diary/widgets/common/linked_text.dart';
 import 'package:mission_diary/widgets/common/rounded_button.dart';
 import 'package:mission_diary/widgets/common/user_info_text_field.dart';
+import 'package:mission_diary/widgets/home/home_screen.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({super.key});
@@ -44,6 +46,25 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 
   void _onTapSignUp() {
     context.goNamed(SignUpScreen.routeName);
+  }
+
+  Future<void> _onTapEmailLogin() async {
+    final result = await ref.read(loginProvider.notifier).loginWithEmail(
+          _emailController.text,
+          _passwordController.text,
+        );
+    if (mounted) {
+      if (result != null) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            showCloseIcon: true,
+            content: Text(result),
+          ),
+        );
+      } else {
+        context.goNamed(HomeScreen.routeName);
+      }
+    }
   }
 
   @override
@@ -117,7 +138,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     RoundedButton(
-                      onTap: () => (),
+                      onTap: _onTapEmailLogin,
                       text: "Login",
                       borderRadius: Sizes.size12,
                       backgroundColor: Theme.of(context).colorScheme.primary,

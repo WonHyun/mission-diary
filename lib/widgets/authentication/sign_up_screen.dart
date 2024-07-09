@@ -8,10 +8,12 @@ import 'package:mission_diary/global/gaps.dart';
 import 'package:mission_diary/global/sizes.dart';
 import 'package:mission_diary/util/valid_util.dart';
 import 'package:mission_diary/widgets/authentication/login_screen.dart';
+import 'package:mission_diary/widgets/authentication/view_model/sign_up_view_model.dart';
 import 'package:mission_diary/widgets/common/constrainted_body.dart';
 import 'package:mission_diary/widgets/common/linked_text.dart';
 import 'package:mission_diary/widgets/common/rounded_button.dart';
 import 'package:mission_diary/widgets/common/user_info_text_field.dart';
+import 'package:mission_diary/widgets/home/home_screen.dart';
 
 class SignUpScreen extends ConsumerStatefulWidget {
   const SignUpScreen({super.key});
@@ -46,6 +48,26 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
 
   void _onTapLogin() {
     context.goNamed(LoginScreen.routeName);
+  }
+
+  Future<void> _onTapSignUp() async {
+    final result = await ref.read(signUpProvider.notifier).signUp(
+          _emailController.text,
+          _passwordController.text,
+        );
+    if (mounted) {
+      if (result != null) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            showCloseIcon: true,
+            content: Text(result),
+          ),
+        );
+      } else {
+        //TODO: it will can be go to onboarding screens
+        context.goNamed(HomeScreen.routeName);
+      }
+    }
   }
 
   @override
@@ -127,12 +149,16 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     RoundedButton(
-                      onTap: () => (),
+                      onTap: _onTapSignUp,
                       text: "Create",
                       borderRadius: Sizes.size12,
                       backgroundColor: Theme.of(context).colorScheme.primary,
                       fontColor: Colors.white,
-                      isActive: _isCorrectInfo,
+                      isActive: !ref.watch(signUpProvider).isLoading &&
+                          _isCorrectInfo,
+                      centerWidget: ref.watch(signUpProvider).isLoading
+                          ? const CircularProgressIndicator.adaptive()
+                          : null,
                     ),
                     Gaps.v40,
                     Row(
