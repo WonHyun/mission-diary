@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:mission_diary/global/gaps.dart';
 import 'package:mission_diary/global/sizes.dart';
 import 'package:mission_diary/widgets/authentication/login_screen.dart';
+import 'package:mission_diary/widgets/authentication/sign_up_screen.dart';
 import 'package:mission_diary/widgets/common/constrainted_body.dart';
 import 'package:mission_diary/widgets/common/linked_text.dart';
 import 'package:mission_diary/widgets/common/rounded_button.dart';
@@ -15,6 +16,10 @@ class IntroScreen extends StatelessWidget {
 
   void _onTapLogin(BuildContext context) {
     context.goNamed(LoginScreen.routeName);
+  }
+
+  void _onTapSignUp(BuildContext context) {
+    context.goNamed(SignUpScreen.routeName);
   }
 
   @override
@@ -72,7 +77,10 @@ class IntroScreen extends StatelessWidget {
                     ),
                   ),
                   Gaps.v24,
-                  const LinkedText(text: "Sign Up")
+                  LinkedText(
+                    text: "Sign Up",
+                    onTap: () => _onTapSignUp(context),
+                  )
                 ],
               ),
             ),

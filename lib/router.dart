@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mission_diary/widgets/authentication/intro_screen.dart';
 import 'package:mission_diary/widgets/authentication/login_screen.dart';
+import 'package:mission_diary/widgets/authentication/sign_up_screen.dart';
 import 'package:mission_diary/widgets/home/home_screen.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
@@ -27,6 +28,11 @@ final routerProvider = Provider(
           path: LoginScreen.routePath,
           name: LoginScreen.routeName,
           builder: (context, state) => const LoginScreen(),
+        ),
+        GoRoute(
+          path: SignUpScreen.routePath,
+          name: SignUpScreen.routeName,
+          builder: (context, state) => const SignUpScreen(),
         ),
         GoRoute(
           path: HomeScreen.routePath,

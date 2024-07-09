@@ -7,30 +7,32 @@ import 'package:mission_diary/global/color.dart';
 import 'package:mission_diary/global/gaps.dart';
 import 'package:mission_diary/global/sizes.dart';
 import 'package:mission_diary/util/valid_util.dart';
-import 'package:mission_diary/widgets/authentication/sign_up_screen.dart';
+import 'package:mission_diary/widgets/authentication/login_screen.dart';
 import 'package:mission_diary/widgets/common/constrainted_body.dart';
 import 'package:mission_diary/widgets/common/linked_text.dart';
 import 'package:mission_diary/widgets/common/rounded_button.dart';
 import 'package:mission_diary/widgets/common/user_info_text_field.dart';
 
-class LoginScreen extends ConsumerStatefulWidget {
-  const LoginScreen({super.key});
+class SignUpScreen extends ConsumerStatefulWidget {
+  const SignUpScreen({super.key});
 
-  static const String routePath = "/login";
-  static const String routeName = "login";
+  static const String routePath = "/signup";
+  static const String routeName = "signup";
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _LoginScreenState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _SignUpScreenState();
 }
 
-class _LoginScreenState extends ConsumerState<LoginScreen> {
+class _SignUpScreenState extends ConsumerState<SignUpScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmPasswordController =
+      TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   bool _isCorrectInfo = false;
 
-  void _isLoginValidator() {
+  void _isSignUpValidator() {
     if (_formKey.currentState?.validate() ?? false) {
       setState(() {
         _isCorrectInfo = true;
@@ -42,14 +44,15 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     }
   }
 
-  void _onTapSignUp() {
-    context.goNamed(SignUpScreen.routeName);
+  void _onTapLogin() {
+    context.goNamed(LoginScreen.routeName);
   }
 
   @override
   void dispose() {
     _emailController.dispose();
     _passwordController.dispose();
+    _confirmPasswordController.dispose();
     super.dispose();
   }
 
@@ -59,7 +62,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
       body: ConstraintedBody(
         child: Form(
           key: _formKey,
-          onChanged: _isLoginValidator,
+          onChanged: _isSignUpValidator,
           child: Column(
             children: [
               Flexible(
@@ -67,7 +70,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 child: Container(
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    "Login",
+                    "Sign Up",
                     style: Theme.of(context).textTheme.headlineLarge?.copyWith(
                           fontWeight: FontWeight.w600,
                           color: Theme.of(context).colorScheme.primary,
@@ -76,7 +79,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 ),
               ),
               Flexible(
-                flex: 40,
+                flex: 50,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -100,13 +103,20 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       isObscure: true,
                     ),
                     Gaps.v20,
-                    const Align(
-                      alignment: Alignment.centerRight,
-                      child: LinkedText(
-                        text: "Forgot Password?",
-                        fontWeight: FontWeight.w400,
-                        fontSize: Sizes.size14,
-                      ),
+                    UserInfoTextField(
+                      controller: _confirmPasswordController,
+                      labelText: "Confirm Password",
+                      guideText: "Enter your password again",
+                      floatingLabelText: "Confirm Password",
+                      prefixIcon: FontAwesomeIcons.lock,
+                      validator: (value) {
+                        if (value != _passwordController.text) {
+                          return "Confirm your password";
+                        } else {
+                          return null;
+                        }
+                      },
+                      isObscure: true,
                     ),
                   ],
                 ),
@@ -118,7 +128,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   children: [
                     RoundedButton(
                       onTap: () => (),
-                      text: "Login",
+                      text: "Create",
                       borderRadius: Sizes.size12,
                       backgroundColor: Theme.of(context).colorScheme.primary,
                       fontColor: Colors.white,
@@ -217,7 +227,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     text: TextSpan(
                       children: [
                         const TextSpan(
-                          text: "Don't have an account? ",
+                          text: "Have any account? ",
                           style: TextStyle(
                             color: ThemeColors.slateDarkBlue,
                             fontWeight: FontWeight.w300,
@@ -226,8 +236,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                         ),
                         WidgetSpan(
                           child: LinkedText(
-                            onTap: _onTapSignUp,
-                            text: "Sign Up",
+                            onTap: _onTapLogin,
+                            text: "Log In",
                             color: ThemeColors.slateDarkBlue,
                             fontSize: Sizes.size14,
                           ),
