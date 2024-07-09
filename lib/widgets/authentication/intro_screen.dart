@@ -5,6 +5,7 @@ import 'package:mission_diary/global/sizes.dart';
 import 'package:mission_diary/widgets/authentication/login_screen.dart';
 import 'package:mission_diary/widgets/authentication/sign_up_screen.dart';
 import 'package:mission_diary/widgets/common/constrainted_body.dart';
+import 'package:mission_diary/widgets/common/intro_animation.dart';
 import 'package:mission_diary/widgets/common/linked_text.dart';
 import 'package:mission_diary/widgets/common/rounded_button.dart';
 
@@ -30,14 +31,9 @@ class IntroScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Flexible(
+            const Flexible(
               flex: 50,
-              child: Container(
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Theme.of(context).colorScheme.primary,
-                ),
-              ),
+              child: IntroAnimation(),
             ),
             Flexible(
               flex: 25,

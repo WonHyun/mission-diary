@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:mission_diary/firebase_options.dart';
 import 'package:mission_diary/global/enum.dart';
+import 'package:rive/rive.dart';
 // import 'package:flutter/foundation.dart';
 
 class InitalizeApp {
@@ -19,6 +20,8 @@ class InitalizeApp {
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
     );
+
+    await RiveFile.initialize();
   }
 
   static Future<void> initHiveBoxes() async {
