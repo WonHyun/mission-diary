@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mission_diary/widgets/authentication/intro_screen.dart';
+import 'package:mission_diary/widgets/authentication/login_screen.dart';
 import 'package:mission_diary/widgets/home/home_screen.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
@@ -21,6 +22,11 @@ final routerProvider = Provider(
           path: IntroScreen.routePath,
           name: IntroScreen.routeName,
           builder: (context, state) => const IntroScreen(),
+        ),
+        GoRoute(
+          path: LoginScreen.routePath,
+          name: LoginScreen.routeName,
+          builder: (context, state) => const LoginScreen(),
         ),
         GoRoute(
           path: HomeScreen.routePath,

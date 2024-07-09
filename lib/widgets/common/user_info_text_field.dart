@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mission_diary/global/color.dart';
+import 'package:mission_diary/global/sizes.dart';
 
 class UserInfoTextField extends StatefulWidget {
   const UserInfoTextField({
@@ -14,6 +15,8 @@ class UserInfoTextField extends StatefulWidget {
     this.isObscure = false,
     this.textInputType = TextInputType.none,
     this.controller,
+    this.inputTextColor,
+    this.prefixIcon,
   });
 
   final String? labelText;
@@ -25,6 +28,8 @@ class UserInfoTextField extends StatefulWidget {
   final bool isObscure;
   final TextInputType textInputType;
   final TextEditingController? controller;
+  final Color? inputTextColor;
+  final IconData? prefixIcon;
 
   @override
   State<UserInfoTextField> createState() => _UserInfoTextFieldState();
@@ -86,18 +91,18 @@ class _UserInfoTextFieldState extends State<UserInfoTextField> {
       validator: widget.validator,
       onSaved: widget.onSaved,
       style: TextStyle(
-        color: Theme.of(context).colorScheme.primary,
+        color: widget.inputTextColor,
         fontWeight: FontWeight.w300,
       ),
       decoration: InputDecoration(
-        contentPadding: const EdgeInsets.only(bottom: 10),
+        contentPadding: const EdgeInsets.only(bottom: Sizes.size10),
         label: Text(_getLabelText()),
         labelStyle: TextStyle(
-          color: Theme.of(context).colorScheme.inverseSurface.withOpacity(0.5),
+          color: Colors.grey.shade400,
         ),
         floatingLabelStyle: TextStyle(
           color: Theme.of(context).colorScheme.inverseSurface,
-          fontSize: 18,
+          fontSize: Sizes.size18,
           fontWeight: FontWeight.w300,
         ),
         floatingLabelBehavior: widget.floatingLabelText == null
@@ -106,7 +111,7 @@ class _UserInfoTextFieldState extends State<UserInfoTextField> {
         hintText: widget.guideText,
         hintStyle: TextStyle(
           fontWeight: FontWeight.w400,
-          color: Theme.of(context).colorScheme.inverseSurface.withOpacity(0.5),
+          color: Colors.grey.shade400,
         ),
         suffix: Padding(
           padding: const EdgeInsets.only(left: 8),
@@ -143,6 +148,17 @@ class _UserInfoTextFieldState extends State<UserInfoTextField> {
             ],
           ),
         ),
+        prefixIconConstraints: const BoxConstraints(),
+        prefixIcon: widget.prefixIcon != null
+            ? Padding(
+                padding: const EdgeInsets.only(right: Sizes.size14),
+                child: Icon(
+                  widget.prefixIcon,
+                  color: Colors.grey.shade600,
+                  size: Sizes.size20,
+                ),
+              )
+            : null,
         enabledBorder: UnderlineInputBorder(
           borderSide: BorderSide(
             color: Colors.grey.shade300,
@@ -155,7 +171,7 @@ class _UserInfoTextFieldState extends State<UserInfoTextField> {
         ),
         focusedErrorBorder: UnderlineInputBorder(
           borderSide: BorderSide(
-            color: Colors.red.shade700,
+            color: Theme.of(context).colorScheme.error,
           ),
         ),
       ),

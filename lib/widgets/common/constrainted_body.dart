@@ -6,8 +6,8 @@ class ConstraintedBody extends StatelessWidget {
   const ConstraintedBody({
     super.key,
     required this.child,
-    this.horizontalPadding = Sizes.size20,
-    this.verticalPadding = Sizes.size20,
+    this.horizontalPadding = Sizes.size28,
+    this.verticalPadding = Sizes.size28,
     this.constraints,
   });
 

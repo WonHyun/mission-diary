@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mission_diary/global/gaps.dart';
 import 'package:mission_diary/global/sizes.dart';
+import 'package:mission_diary/widgets/authentication/login_screen.dart';
 import 'package:mission_diary/widgets/common/constrainted_body.dart';
 import 'package:mission_diary/widgets/common/linked_text.dart';
 import 'package:mission_diary/widgets/common/rounded_button.dart';
@@ -10,6 +12,10 @@ class IntroScreen extends StatelessWidget {
 
   static const String routePath = "/";
   static const String routeName = "intro";
+
+  void _onTapLogin(BuildContext context) {
+    context.goNamed(LoginScreen.routeName);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +64,7 @@ class IntroScreen extends StatelessWidget {
                       horizontal: Sizes.size20,
                     ),
                     child: RoundedButton(
-                      onTap: () => {},
+                      onTap: () => _onTapLogin(context),
                       text: "Login",
                       borderRadius: Sizes.size12,
                       backgroundColor: Theme.of(context).colorScheme.primary,
