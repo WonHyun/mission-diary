@@ -1,6 +1,6 @@
-import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:mission_diary/global/theme.dart';
 import 'package:mission_diary/router.dart';
 
 class MainApp extends ConsumerWidget {
@@ -9,9 +9,9 @@ class MainApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return MaterialApp.router(
-      themeMode: ThemeMode.system,
-      theme: FlexThemeData.light(),
-      darkTheme: FlexThemeData.dark(),
+      themeMode: ThemeMode.light,
+      theme: MissionDiaryTheme.light,
+      darkTheme: MissionDiaryTheme.dark,
       routerConfig: ref.watch(routerProvider),
     );
   }

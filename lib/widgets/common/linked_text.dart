@@ -5,15 +5,15 @@ class LinkedText extends StatefulWidget {
     super.key,
     required this.text,
     this.fontSize = 16,
-    this.fontWeight = FontWeight.w300,
-    this.color = Colors.blue,
+    this.fontWeight = FontWeight.w500,
+    this.color,
     this.onTap,
   });
 
   final String text;
   final double fontSize;
   final FontWeight fontWeight;
-  final Color color;
+  final Color? color;
   final Function()? onTap;
 
   @override
@@ -30,6 +30,7 @@ class _LinkedTextState extends State<LinkedText> {
 
   @override
   Widget build(BuildContext context) {
+    final textColor = widget.color ?? Theme.of(context).colorScheme.primary;
     return GestureDetector(
       onTap: widget.onTap,
       onTapDown: (details) => setState(() => _isTapping = true),
@@ -38,7 +39,7 @@ class _LinkedTextState extends State<LinkedText> {
       child: AnimatedDefaultTextStyle(
         duration: const Duration(milliseconds: 100),
         style: TextStyle(
-          color: _isTapping ? widget.color.withOpacity(0.4) : widget.color,
+          color: _isTapping ? textColor.withOpacity(0.4) : textColor,
           fontWeight: widget.fontWeight,
           fontSize: widget.fontSize,
         ),

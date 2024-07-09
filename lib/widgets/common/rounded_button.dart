@@ -10,8 +10,9 @@ class RoundedButton extends StatelessWidget {
     this.text,
     this.fontColor,
     this.fontSize = 16,
-    this.fontWeight = FontWeight.w700,
+    this.fontWeight = FontWeight.w500,
     this.isActive = true,
+    this.useBorder = false,
     this.borderColor,
     this.backgroundColor,
     this.inactiveColor,
@@ -29,6 +30,7 @@ class RoundedButton extends StatelessWidget {
   final double fontSize;
   final FontWeight fontWeight;
   final bool isActive;
+  final bool useBorder;
   final Color? borderColor;
   final Color? backgroundColor;
   final Color? inactiveColor;
@@ -61,10 +63,12 @@ class RoundedButton extends StatelessWidget {
       decoration: BoxDecoration(
         color: _setBackgroundColor(context),
         borderRadius: BorderRadius.circular(borderRadius),
-        border: Border.all(
-          width: 0.5,
-          color: borderColor ?? Colors.grey.shade500,
-        ),
+        border: useBorder
+            ? Border.all(
+                width: 0.5,
+                color: borderColor ?? Colors.grey.shade500,
+              )
+            : null,
       ),
       child: Material(
         color: Colors.transparent,

@@ -85,8 +85,8 @@ class _UserInfoTextFieldState extends State<UserInfoTextField> {
       onChanged: (value) => setState(() => widget.validator?.call(value)),
       validator: widget.validator,
       onSaved: widget.onSaved,
-      style: const TextStyle(
-        color: ThemeColors.primaryColor,
+      style: TextStyle(
+        color: Theme.of(context).colorScheme.primary,
         fontWeight: FontWeight.w300,
       ),
       decoration: InputDecoration(
@@ -136,7 +136,7 @@ class _UserInfoTextFieldState extends State<UserInfoTextField> {
                   duration: const Duration(milliseconds: 150),
                   child: const FaIcon(
                     FontAwesomeIcons.solidCircleCheck,
-                    color: ThemeColors.verifyColor,
+                    color: ThemeColors.lightGreen,
                   ),
                 ),
               ),

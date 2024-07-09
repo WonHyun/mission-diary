@@ -1,33 +1,32 @@
+import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:mission_diary/global/color.dart';
 
-class DiaryTheme {
-  static final light = ThemeData(
+class MissionDiaryTheme {
+  static final light = FlexThemeData.light(
     useMaterial3: true,
-    brightness: Brightness.light,
     colorScheme: const ColorScheme(
       brightness: Brightness.light,
-      primary: ThemeColors.primaryColor,
+      primary: ThemeColors.slateBlue,
       onPrimary: Colors.white,
-      secondary: Color(0xFF2C5EAD),
+      secondary: ThemeColors.skyBlue,
       onSecondary: Colors.black,
-      error: Color(0xffb00020),
+      error: ThemeColors.lightCoral,
       onError: Colors.white,
       surface: Colors.white,
       onSurface: Colors.black,
       surfaceTint: Colors.transparent,
     ),
   );
-  static final dark = ThemeData(
+  static final dark = FlexThemeData.dark(
     useMaterial3: true,
-    brightness: Brightness.dark,
     colorScheme: const ColorScheme(
       brightness: Brightness.dark,
-      primary: ThemeColors.primaryColor,
+      primary: ThemeColors.slateBlue,
       onPrimary: Colors.white,
-      secondary: Color(0xFF2C5EAD),
+      secondary: ThemeColors.skyBlue,
       onSecondary: Colors.black,
-      error: Color(0xffb00020),
+      error: ThemeColors.lightCoral,
       onError: Colors.white,
       surface: Colors.black,
       onSurface: Colors.white,
