@@ -4,11 +4,13 @@
 // future. If not, the values below would default to using the project name when this becomes a
 // 'flutter create' template.
 
+#include "Pods/Target Support Files/Pods-Runner/Pods-Runner.debug.xcconfig"
+
 // The application's name. By default this is also the title of the Flutter window.
 PRODUCT_NAME = mission_diary
 
 // The application's bundle identifier
-PRODUCT_BUNDLE_IDENTIFIER = com.example.missionDiary
+PRODUCT_BUNDLE_IDENTIFIER = com.devwon.mido
 
 // The copyright displayed in application information
 PRODUCT_COPYRIGHT = Copyright © 2024 com.example. All rights reserved.
