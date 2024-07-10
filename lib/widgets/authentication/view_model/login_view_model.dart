@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mission_diary/widgets/authentication/repo/authentication_repository.dart';
+import 'package:mission_diary/widgets/user_profile/view_model/user_profile_view_model.dart';
 
 class LoginViewModel extends AsyncNotifier<void> {
   late final AuthenticationRepository _authRepo;
@@ -17,7 +18,7 @@ class LoginViewModel extends AsyncNotifier<void> {
     state = await AsyncValue.guard(
       () async {
         await _authRepo.login(email, password);
-        // ref.read(userProvider.notifier).fetchUserProfile();
+        ref.read(profileProvider.notifier).fetchUserProfile();
       },
     );
     if (state.hasError) {
@@ -35,7 +36,7 @@ class LoginViewModel extends AsyncNotifier<void> {
     state = await AsyncValue.guard(
       () async {
         await _authRepo.logout();
-        // ref.read(userProvider.notifier).resetUserInfo();
+        ref.read(profileProvider.notifier).resetUserInfo();
       },
     );
     if (state.hasError) {

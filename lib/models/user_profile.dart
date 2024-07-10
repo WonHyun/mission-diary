@@ -8,8 +8,10 @@ class UserProfile with _$UserProfile {
   const factory UserProfile({
     required String userId,
     required String userName,
+    required String email,
     required String bio,
     required String profileImgPath,
+    required String createdAt,
   }) = _UserProfile;
 
   factory UserProfile.fromJson(Map<String, dynamic> json) =>

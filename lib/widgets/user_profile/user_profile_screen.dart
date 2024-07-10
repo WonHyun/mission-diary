@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
-import 'package:mission_diary/widgets/authentication/intro_screen.dart';
-import 'package:mission_diary/widgets/authentication/view_model/login_view_model.dart';
+import 'package:mission_diary/global/gaps.dart';
+import 'package:mission_diary/widgets/setting/setting_screen.dart';
+import 'package:mission_diary/widgets/user_profile/view_model/user_profile_view_model.dart';
+import 'package:mission_diary/widgets/user_profile/widgets/editable_avatar.dart';
 
 class UserProfileScreen extends ConsumerStatefulWidget {
   const UserProfileScreen({super.key});
@@ -16,25 +19,64 @@ class UserProfileScreen extends ConsumerStatefulWidget {
 }
 
 class _UserProfileScreenState extends ConsumerState<UserProfileScreen> {
-  Future<void> _onTapLogout() async {
-    await ref.read(loginProvider.notifier).logout();
-    if (mounted) {
-      context.goNamed(IntroScreen.routeName);
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Material(
-      child: Column(
-        children: [
-          const Text("User profile"),
-          TextButton(
-            onPressed: _onTapLogout,
-            child: const Text("Logout"),
-          ),
-        ],
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            Align(
+              alignment: Alignment.centerRight,
+              child: GestureDetector(
+                onTap: () => context.pushNamed(SettingScreen.routeName),
+                child: const FaIcon(FontAwesomeIcons.gear),
+              ),
+            ),
+            ref.watch(profileProvider).when(
+                  data: (profile) {
+                    return Column(
+                      children: [
+                        Gaps.v20,
+                        EditableAvatar(profile: profile),
+                        Gaps.v20,
+                        Text(
+                          profile.userName,
+                          style:
+                              Theme.of(context).textTheme.titleLarge?.copyWith(
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                        ),
+                        Gaps.v10,
+                        Text(profile.email),
+                        Gaps.v20,
+                        BioTextView(bio: profile.bio),
+                      ],
+                    );
+                  },
+                  error: (err, stack) => Center(
+                    child: Text("error: $err"),
+                  ),
+                  loading: () => const Center(
+                    child: CircularProgressIndicator.adaptive(),
+                  ),
+                ),
+          ],
+        ),
       ),
     );
+  }
+}
+
+class BioTextView extends StatelessWidget {
+  const BioTextView({
+    super.key,
+    required this.bio,
+  });
+
+  final String bio;
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(bio.isEmpty ? "Hello World!" : bio);
   }
 }

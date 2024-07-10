@@ -23,9 +23,18 @@ class SettingScreen extends ConsumerStatefulWidget {
 
 class _SettingScreenState extends ConsumerState<SettingScreen> {
   Future<void> _onLogout() async {
-    await ref.read(loginProvider.notifier).logout();
+    final result = await ref.read(loginProvider.notifier).logout();
     if (mounted) {
-      context.goNamed(IntroScreen.routeName);
+      if (result != null) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            showCloseIcon: true,
+            content: Text(result),
+          ),
+        );
+      } else {
+        context.goNamed(IntroScreen.routeName);
+      }
     }
   }
 
