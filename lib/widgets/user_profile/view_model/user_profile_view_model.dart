@@ -44,13 +44,14 @@ class UserProfileViewModel extends AsyncNotifier<UserProfile> {
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(
       () async {
+        faker.color.commonColor();
         final userProfile = AsyncData(
           state.value!.copyWith(
             userId: credential.user?.uid ?? "",
             email: credential.user?.email ?? "",
             profileImgPath: credential.user?.photoURL ?? "",
             userName:
-                "${capitalizeFirst(faker.color.color())} ${capitalizeFirst(faker.animal.name())}",
+                "${capitalizeFirst(faker.color.commonColor())}${capitalizeFirst(faker.animal.name())}",
             createdAt: DateTime.now().toIso8601String(),
           ),
         );
