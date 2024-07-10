@@ -45,7 +45,7 @@ class _MainNavigatorState extends State<MainNavigator> {
                 openColor: Theme.of(context).colorScheme.surface,
                 openBuilder: (context, openCallback) => const PostingScreen(),
                 openElevation: 3,
-                transitionType: ContainerTransitionType.fade,
+                transitionType: ContainerTransitionType.fadeThrough,
                 transitionDuration: const Duration(milliseconds: 500),
                 closedShape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
@@ -55,7 +55,7 @@ class _MainNavigatorState extends State<MainNavigator> {
                     : Theme.of(context).colorScheme.surface,
                 closedElevation: 3,
                 closedBuilder: (context, openCallback) {
-                  return Padding(
+                  return Container(
                     padding: const EdgeInsets.symmetric(
                       vertical: Sizes.size10,
                     ),
@@ -74,9 +74,7 @@ class _MainNavigatorState extends State<MainNavigator> {
                           unselectedIcon: FontAwesomeIcons.newspaper,
                           isSelected: widget.type == MainNavigatorType.feed,
                         ),
-                        GradientPlusButton(
-                          onTap: () => openCallback(),
-                        ),
+                        GradientPlusButton(onTap: openCallback),
                         NavigatorMenuIcon(
                           onTap: () =>
                               context.goNamed(ActivityScreen.routeName),

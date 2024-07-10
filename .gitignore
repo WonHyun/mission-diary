@@ -306,3 +306,7 @@ firebase.json
 google-services.json
 firebase_options.dart
 GoogleService-Info.plist
+
+# freezed files
+*.g.dart
+*.freezed.dart
