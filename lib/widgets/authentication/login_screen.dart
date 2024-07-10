@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
-import 'package:mission_diary/global/color.dart';
 import 'package:mission_diary/global/gaps.dart';
 import 'package:mission_diary/global/sizes.dart';
 import 'package:mission_diary/util/valid_util.dart';
@@ -241,10 +240,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   child: RichText(
                     text: TextSpan(
                       children: [
-                        const TextSpan(
+                        TextSpan(
                           text: "Don't have an account? ",
                           style: TextStyle(
-                            color: ThemeColors.slateDarkBlue,
+                            color: Theme.of(context).colorScheme.primary,
                             fontWeight: FontWeight.w300,
                             fontSize: Sizes.size14,
                           ),
@@ -253,7 +252,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                           child: LinkedText(
                             onTap: _onTapSignUp,
                             text: "Sign Up",
-                            color: ThemeColors.slateDarkBlue,
+                            color: Theme.of(context).colorScheme.primary,
                             fontSize: Sizes.size14,
                           ),
                         ),

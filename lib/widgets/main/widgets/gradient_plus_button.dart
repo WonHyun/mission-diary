@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mission_diary/global/color.dart';
 import 'package:mission_diary/global/sizes.dart';
+import 'package:mission_diary/global/value.dart';
 
 class GradientPlusButton extends StatelessWidget {
   const GradientPlusButton({
@@ -21,7 +22,10 @@ class GradientPlusButton extends StatelessWidget {
           end: Alignment.topCenter,
           colors: [
             Theme.of(context).colorScheme.primary,
-            Theme.of(context).colorScheme.primary.withOpacity(0.5),
+            Theme.of(context)
+                .colorScheme
+                .primary
+                .withOpacity(isDarkMode(context) ? 1.0 : 0.5),
           ],
           stops: const [0.5, 1.0],
         ),
@@ -31,7 +35,7 @@ class GradientPlusButton extends StatelessWidget {
         child: InkWell(
           splashColor: ThemeColors.slateDarkBlue.withOpacity(0.5),
           borderRadius: BorderRadius.circular(360),
-          onTap: () => {},
+          onTap: onTap,
           child: const Padding(
             padding: EdgeInsets.all(Sizes.size10),
             child: Icon(
