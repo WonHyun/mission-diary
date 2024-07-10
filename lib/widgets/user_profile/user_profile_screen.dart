@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mission_diary/widgets/authentication/intro_screen.dart';
 import 'package:mission_diary/widgets/authentication/view_model/login_view_model.dart';
-import 'package:mission_diary/widgets/common/constrainted_body.dart';
 
 class UserProfileScreen extends ConsumerStatefulWidget {
   const UserProfileScreen({super.key});
@@ -26,16 +25,15 @@ class _UserProfileScreenState extends ConsumerState<UserProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: ConstraintedBody(
-        child: Column(
-          children: [
-            TextButton(
-              onPressed: _onTapLogout,
-              child: const Text("Logout"),
-            ),
-          ],
-        ),
+    return Material(
+      child: Column(
+        children: [
+          const Text("User profile"),
+          TextButton(
+            onPressed: _onTapLogout,
+            child: const Text("Logout"),
+          ),
+        ],
       ),
     );
   }

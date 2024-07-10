@@ -5,6 +5,6 @@ enum BoxName {
 enum MainNavigatorType {
   home,
   feed,
-  status,
+  activity,
   profile,
 }

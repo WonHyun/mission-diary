@@ -3,7 +3,9 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mission_diary/global/enum.dart';
 import 'package:mission_diary/global/sizes.dart';
+import 'package:mission_diary/widgets/activity/activity_screen.dart';
 import 'package:mission_diary/widgets/common/constrainted_body.dart';
+import 'package:mission_diary/widgets/feed/feed_screen.dart';
 import 'package:mission_diary/widgets/home/home_screen.dart';
 import 'package:mission_diary/widgets/main/widgets/gradient_plus_button.dart';
 import 'package:mission_diary/widgets/main/widgets/navigator_menu_icon.dart';
@@ -65,7 +67,7 @@ class _MainNavigatorState extends State<MainNavigator> {
                       isSelected: widget.type == MainNavigatorType.home,
                     ),
                     NavigatorMenuIcon(
-                      onTap: () => {},
+                      onTap: () => context.goNamed(FeedScreen.routeName),
                       selectedIcon: FontAwesomeIcons.solidNewspaper,
                       unselectedIcon: FontAwesomeIcons.newspaper,
                       isSelected: widget.type == MainNavigatorType.feed,
@@ -74,10 +76,10 @@ class _MainNavigatorState extends State<MainNavigator> {
                       onTap: () => {},
                     ),
                     NavigatorMenuIcon(
-                      onTap: () => {},
+                      onTap: () => context.goNamed(ActivityScreen.routeName),
                       selectedIcon: FontAwesomeIcons.chartSimple,
                       unselectedIcon: FontAwesomeIcons.chartSimple,
-                      isSelected: widget.type == MainNavigatorType.status,
+                      isSelected: widget.type == MainNavigatorType.activity,
                     ),
                     NavigatorMenuIcon(
                       onTap: () => context.goNamed(UserProfileScreen.routeName),

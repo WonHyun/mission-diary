@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mission_diary/global/enum.dart';
+import 'package:mission_diary/widgets/activity/activity_screen.dart';
 import 'package:mission_diary/widgets/authentication/intro_screen.dart';
 import 'package:mission_diary/widgets/authentication/login_screen.dart';
 import 'package:mission_diary/widgets/authentication/repo/authentication_repository.dart';
 import 'package:mission_diary/widgets/authentication/sign_up_screen.dart';
+import 'package:mission_diary/widgets/feed/feed_screen.dart';
 import 'package:mission_diary/widgets/home/home_screen.dart';
 import 'package:mission_diary/widgets/main/main_navigator.dart';
 import 'package:mission_diary/widgets/user_profile/user_profile_screen.dart';
@@ -52,6 +54,10 @@ final routerProvider = Provider(
             switch (state.matchedLocation) {
               case HomeScreen.routePath:
                 type = MainNavigatorType.home;
+              case FeedScreen.routePath:
+                type = MainNavigatorType.feed;
+              case ActivityScreen.routePath:
+                type = MainNavigatorType.activity;
               case UserProfileScreen.routePath:
               default:
                 type = MainNavigatorType.profile;
@@ -68,9 +74,19 @@ final routerProvider = Provider(
               builder: (context, state) => const HomeScreen(),
             ),
             GoRoute(
+              path: FeedScreen.routePath,
+              name: FeedScreen.routeName,
+              builder: (context, state) => const FeedScreen(),
+            ),
+            GoRoute(
               path: UserProfileScreen.routePath,
               name: UserProfileScreen.routeName,
               builder: (context, state) => const UserProfileScreen(),
+            ),
+            GoRoute(
+              path: ActivityScreen.routePath,
+              name: ActivityScreen.routeName,
+              builder: (context, state) => const ActivityScreen(),
             ),
           ],
         ),
