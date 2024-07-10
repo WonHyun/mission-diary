@@ -144,6 +144,13 @@ class _SettingScreenState extends ConsumerState<SettingScreen> {
             ),
             const Divider(),
             ListTile(
+              onTap: () => showAboutDialog(
+                  context: context,
+                  applicationName: "Mission Diary",
+                  applicationVersion: "0.1-beta"),
+              title: const Text("About"),
+            ),
+            ListTile(
               onTap: _onTapLogout,
               title: const Text(
                 "Logout",
