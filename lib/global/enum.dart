@@ -8,3 +8,10 @@ enum MainNavigatorType {
   activity,
   profile,
 }
+
+enum UserSetting {
+  language,
+  themeMode,
+  isAllowNotification,
+  isAllowNotificationRing,
+}
