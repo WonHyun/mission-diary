@@ -78,6 +78,7 @@ class _UserProfileEditScreenState extends ConsumerState<UserProfileEditScreen> {
         body: ref.watch(profileProvider).when(
               data: (profile) {
                 return ConstraintedBody(
+                  alignment: Alignment.topCenter,
                   child: SingleChildScrollView(
                     child: Column(
                       children: [
@@ -85,7 +86,7 @@ class _UserProfileEditScreenState extends ConsumerState<UserProfileEditScreen> {
                           profile: profile,
                           size: Sizes.size48,
                         ),
-                        Gaps.v48,
+                        Gaps.v32,
                         TextField(
                           controller: _nameController,
                           maxLines: 1,
@@ -127,11 +128,10 @@ class _UserProfileEditScreenState extends ConsumerState<UserProfileEditScreen> {
                             ),
                           ),
                         ),
-                        Gaps.v32,
+                        Gaps.v48,
                         RoundedButton(
                           onTap: () => _onEditTap(),
                           text: "Edit Profile",
-                          borderRadius: 10,
                           centerWidget: ref.watch(profileProvider).isLoading
                               ? const CircularProgressIndicator.adaptive()
                               : null,
@@ -141,7 +141,6 @@ class _UserProfileEditScreenState extends ConsumerState<UserProfileEditScreen> {
                           isActive: _isEditActive &&
                               !ref.watch(profileProvider).isLoading,
                         ),
-                        Gaps.v48,
                       ],
                     ),
                   ),
