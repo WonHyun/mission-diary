@@ -6,7 +6,7 @@ class RoundedButton extends StatelessWidget {
     super.key,
     this.width = double.infinity,
     this.height = 50,
-    this.borderRadius = 30,
+    this.borderRadius = 10,
     this.leading,
     this.text,
     this.fontColor,
