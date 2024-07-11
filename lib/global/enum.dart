@@ -15,3 +15,21 @@ enum UserSetting {
   isAllowNotification,
   isAllowNotificationRing,
 }
+
+enum MissionType {
+  drink,
+  exercise,
+  reading,
+  meal,
+  wakeUp,
+  sleep,
+  coding,
+  etc,
+}
+
+enum MissionFrequency {
+  once,
+  daily,
+  weekly,
+  monthly,
+}
