@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mission_diary/global/color.dart';
 import 'package:mission_diary/global/sizes.dart';
 import 'package:mission_diary/global/value.dart';
 
-class GradientPlusButton extends StatelessWidget {
-  const GradientPlusButton({
+class GradientButton extends StatelessWidget {
+  const GradientButton({
     super.key,
     required this.onTap,
+    required this.icon,
+    this.iconSize = Sizes.size18,
   });
 
   final Function() onTap;
+  final IconData icon;
+  final double iconSize;
 
   @override
   Widget build(BuildContext context) {
@@ -36,11 +39,12 @@ class GradientPlusButton extends StatelessWidget {
           splashColor: ThemeColors.slateDarkBlue.withOpacity(0.5),
           borderRadius: BorderRadius.circular(360),
           onTap: onTap,
-          child: const Padding(
-            padding: EdgeInsets.all(Sizes.size10),
+          child: Padding(
+            padding: const EdgeInsets.all(Sizes.size12),
             child: Icon(
-              FontAwesomeIcons.plus,
+              icon,
               color: Colors.white,
+              size: iconSize,
             ),
           ),
         ),

@@ -7,9 +7,9 @@ import 'package:mission_diary/global/sizes.dart';
 import 'package:mission_diary/global/value.dart';
 import 'package:mission_diary/widgets/activity/activity_screen.dart';
 import 'package:mission_diary/widgets/common/constrainted_body.dart';
+import 'package:mission_diary/widgets/common/gradient_button.dart';
 import 'package:mission_diary/widgets/feed/feed_screen.dart';
 import 'package:mission_diary/widgets/home/home_screen.dart';
-import 'package:mission_diary/widgets/main/widgets/gradient_plus_button.dart';
 import 'package:mission_diary/widgets/main/widgets/navigator_menu_icon.dart';
 import 'package:mission_diary/widgets/posting/posting_screen.dart';
 import 'package:mission_diary/widgets/user_profile/user_profile_screen.dart';
@@ -74,7 +74,10 @@ class _MainNavigatorState extends State<MainNavigator> {
                           unselectedIcon: FontAwesomeIcons.newspaper,
                           isSelected: widget.type == MainNavigatorType.feed,
                         ),
-                        GradientPlusButton(onTap: openCallback),
+                        GradientButton(
+                          onTap: openCallback,
+                          icon: FontAwesomeIcons.pen,
+                        ),
                         NavigatorMenuIcon(
                           onTap: () =>
                               context.goNamed(ActivityScreen.routeName),
