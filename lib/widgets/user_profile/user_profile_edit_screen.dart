@@ -78,68 +78,72 @@ class _UserProfileEditScreenState extends ConsumerState<UserProfileEditScreen> {
         body: ref.watch(profileProvider).when(
               data: (profile) {
                 return ConstraintedBody(
-                  child: Column(
-                    children: [
-                      EditableAvatar(
-                        profile: profile,
-                        size: Sizes.size48,
-                      ),
-                      Gaps.v20,
-                      TextField(
-                        controller: _nameController,
-                        maxLines: 1,
-                        onChanged: (value) => _onChangedField(),
-                        decoration: const InputDecoration(
-                          label: Text("username"),
-                          labelStyle: TextStyle(color: Colors.grey),
-                          hintText: "Type your username",
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Colors.grey,
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        EditableAvatar(
+                          profile: profile,
+                          size: Sizes.size48,
+                        ),
+                        Gaps.v48,
+                        TextField(
+                          controller: _nameController,
+                          maxLines: 1,
+                          onChanged: (value) => _onChangedField(),
+                          decoration: const InputDecoration(
+                            label: Text("username"),
+                            labelStyle: TextStyle(color: Colors.grey),
+                            hintText: "Type your username",
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Colors.grey,
+                              ),
                             ),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Colors.grey,
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Colors.grey,
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                      Gaps.v32,
-                      TextField(
-                        controller: _bioController,
-                        maxLines: 5,
-                        onChanged: (value) => _onChangedField(),
-                        decoration: const InputDecoration(
-                          label: Text("Description"),
-                          labelStyle: TextStyle(color: Colors.grey),
-                          hintText: "Type your info",
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Colors.grey,
+                        Gaps.v32,
+                        TextField(
+                          controller: _bioController,
+                          maxLines: 5,
+                          onChanged: (value) => _onChangedField(),
+                          decoration: const InputDecoration(
+                            label: Text("Description"),
+                            labelStyle: TextStyle(color: Colors.grey),
+                            hintText: "Type your info",
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Colors.grey,
+                              ),
                             ),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Colors.grey,
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Colors.grey,
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                      Gaps.v32,
-                      RoundedButton(
-                        onTap: () => _onEditTap(),
-                        text: "Edit Profile",
-                        borderRadius: 10,
-                        centerWidget: ref.watch(profileProvider).isLoading
-                            ? const CircularProgressIndicator.adaptive()
-                            : null,
-                        backgroundColor: Theme.of(context).colorScheme.primary,
-                        fontColor: Colors.white,
-                        isActive: _isEditActive &&
-                            !ref.watch(profileProvider).isLoading,
-                      ),
-                    ],
+                        Gaps.v32,
+                        RoundedButton(
+                          onTap: () => _onEditTap(),
+                          text: "Edit Profile",
+                          borderRadius: 10,
+                          centerWidget: ref.watch(profileProvider).isLoading
+                              ? const CircularProgressIndicator.adaptive()
+                              : null,
+                          backgroundColor:
+                              Theme.of(context).colorScheme.primary,
+                          fontColor: Colors.white,
+                          isActive: _isEditActive &&
+                              !ref.watch(profileProvider).isLoading,
+                        ),
+                        Gaps.v48,
+                      ],
+                    ),
                   ),
                 );
               },
