@@ -11,6 +11,7 @@ import 'package:mission_diary/widgets/feed/feed_screen.dart';
 import 'package:mission_diary/widgets/home/home_screen.dart';
 import 'package:mission_diary/widgets/main/main_navigator.dart';
 import 'package:mission_diary/widgets/setting/setting_screen.dart';
+import 'package:mission_diary/widgets/user_profile/user_profile_edit_screen.dart';
 import 'package:mission_diary/widgets/user_profile/user_profile_screen.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
@@ -51,6 +52,11 @@ final routerProvider = Provider(
           name: SettingScreen.routeName,
           path: SettingScreen.routePath,
           builder: (context, state) => const SettingScreen(),
+        ),
+        GoRoute(
+          name: UserProfileEditScreen.routeName,
+          path: UserProfileEditScreen.routePath,
+          builder: (context, state) => const UserProfileEditScreen(),
         ),
         ShellRoute(
           parentNavigatorKey: _rootNavigatorKey,

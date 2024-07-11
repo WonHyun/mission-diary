@@ -3,7 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mission_diary/global/gaps.dart';
+import 'package:mission_diary/global/sizes.dart';
 import 'package:mission_diary/widgets/setting/setting_screen.dart';
+import 'package:mission_diary/widgets/user_profile/user_profile_edit_screen.dart';
 import 'package:mission_diary/widgets/user_profile/view_model/user_profile_view_model.dart';
 import 'package:mission_diary/widgets/user_profile/widgets/editable_avatar.dart';
 
@@ -22,47 +24,54 @@ class _UserProfileScreenState extends ConsumerState<UserProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Material(
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            Align(
-              alignment: Alignment.centerRight,
-              child: GestureDetector(
-                onTap: () => context.pushNamed(SettingScreen.routeName),
-                child: const FaIcon(FontAwesomeIcons.gear),
-              ),
-            ),
-            ref.watch(profileProvider).when(
-                  data: (profile) {
-                    return Column(
+      child: ref.watch(profileProvider).when(
+            data: (profile) {
+              return SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        Gaps.v20,
-                        EditableAvatar(profile: profile),
-                        Gaps.v20,
-                        Text(
-                          profile.userName,
-                          style:
-                              Theme.of(context).textTheme.titleLarge?.copyWith(
-                                    fontWeight: FontWeight.w600,
-                                  ),
+                        GestureDetector(
+                          onTap: () => context
+                              .pushNamed(UserProfileEditScreen.routeName),
+                          child: const FaIcon(FontAwesomeIcons.solidCircleUser),
                         ),
-                        Gaps.v10,
-                        Text(profile.email),
-                        Gaps.v20,
-                        BioTextView(bio: profile.bio),
+                        Gaps.h20,
+                        GestureDetector(
+                          onTap: () =>
+                              context.pushNamed(SettingScreen.routeName),
+                          child: const FaIcon(FontAwesomeIcons.gear),
+                        ),
                       ],
-                    );
-                  },
-                  error: (err, stack) => Center(
-                    child: Text("error: $err"),
-                  ),
-                  loading: () => const Center(
-                    child: CircularProgressIndicator.adaptive(),
-                  ),
+                    ),
+                    Gaps.v20,
+                    EditableAvatar(
+                      profile: profile,
+                      size: Sizes.size48,
+                    ),
+                    Gaps.v20,
+                    Text(
+                      profile.userName,
+                      style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                            fontWeight: FontWeight.w600,
+                          ),
+                    ),
+                    Gaps.v10,
+                    Text(profile.email),
+                    Gaps.v20,
+                    BioTextView(bio: profile.bio),
+                  ],
                 ),
-          ],
-        ),
-      ),
+              );
+            },
+            error: (err, stack) => Center(
+              child: Text("error: $err"),
+            ),
+            loading: () => const Center(
+              child: CircularProgressIndicator.adaptive(),
+            ),
+          ),
     );
   }
 }

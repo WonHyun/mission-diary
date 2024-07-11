@@ -13,13 +13,13 @@ class UserProfileViewModel extends AsyncNotifier<UserProfile> {
   late final AuthenticationRepository _authRepository;
 
   UserProfile getEmptyUser() {
-    return const UserProfile(
+    return UserProfile(
       userId: "",
       userName: "",
       email: "",
       bio: "",
       profileImgPath: "",
-      createdAt: "",
+      createdAt: DateTime.now(),
     );
   }
 
@@ -52,7 +52,7 @@ class UserProfileViewModel extends AsyncNotifier<UserProfile> {
             profileImgPath: credential.user?.photoURL ?? "",
             userName:
                 "${capitalizeFirst(faker.color.commonColor())}${capitalizeFirst(faker.animal.name())}",
-            createdAt: DateTime.now().toIso8601String(),
+            createdAt: DateTime.now(),
           ),
         );
         await _profileRepository.createProfile(userProfile.value);
@@ -82,10 +82,9 @@ class UserProfileViewModel extends AsyncNotifier<UserProfile> {
     state = await AsyncValue.guard(
       () async {
         await _profileRepository.updateProfileInfo(state.value!.userId, data);
-        final newUserProfile = UserProfile.fromJson(data);
         return state.value!.copyWith(
-          userName: newUserProfile.userName,
-          bio: newUserProfile.bio,
+          userName: data["userName"],
+          bio: data["bio"],
         );
       },
     );
