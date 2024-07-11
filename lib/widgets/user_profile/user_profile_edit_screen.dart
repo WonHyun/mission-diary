@@ -130,6 +130,7 @@ class _UserProfileEditScreenState extends ConsumerState<UserProfileEditScreen> {
                       RoundedButton(
                         onTap: () => _onEditTap(),
                         text: "Edit Profile",
+                        borderRadius: 10,
                         centerWidget: ref.watch(profileProvider).isLoading
                             ? const CircularProgressIndicator.adaptive()
                             : null,
