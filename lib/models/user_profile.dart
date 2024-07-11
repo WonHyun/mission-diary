@@ -11,7 +11,7 @@ class UserProfile with _$UserProfile {
     required String email,
     required String bio,
     required String profileImgPath,
-    required String createdAt,
+    required DateTime createdAt,
   }) = _UserProfile;
 
   factory UserProfile.fromJson(Map<String, dynamic> json) =>
