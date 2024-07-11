@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mission_diary/global/gaps.dart';
 import 'package:mission_diary/global/sizes.dart';
+import 'package:mission_diary/widgets/home/view_model/mission_view_model.dart';
 import 'package:mission_diary/widgets/home/widgets/mission_item.dart';
 
-class TodayMissionListView extends StatelessWidget {
+class TodayMissionListView extends ConsumerWidget {
   const TodayMissionListView({
     super.key,
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final missions = ref.watch(missionProvider).value ?? [];
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -25,9 +28,11 @@ class TodayMissionListView extends StatelessWidget {
           shrinkWrap: true,
           primary: false,
           separatorBuilder: (context, index) => Gaps.v10,
-          itemCount: 10,
+          itemCount: missions.length,
           itemBuilder: (context, index) {
-            return const MissionItem();
+            return MissionItem(
+              mission: missions[index],
+            );
           },
         ),
       ],

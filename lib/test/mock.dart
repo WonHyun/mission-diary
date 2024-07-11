@@ -11,16 +11,20 @@ class MissionMock {
         missionId: uuid.v4(),
         userId: uuid.v4(),
         createdAt: DateTime.now(),
-        type: MissionType.reading,
+        type: MissionType
+            .values[faker.randomGenerator.integer(MissionType.values.length)],
         isCompleted: false,
         isNeedPhoto: true,
-        frequency: MissionFrequency.once,
+        frequency: MissionFrequency.values[
+            faker.randomGenerator.integer(MissionFrequency.values.length)],
         title: faker.sport.name(),
         description: faker.lorem.sentence(),
         startAt: DateTime.now(),
         endAt: DateTime.now(),
-        duration: const Duration(minutes: 30),
-        isPrivate: false,
+        duration: Duration(
+            hours: faker.randomGenerator.boolean() ? 0 : 1,
+            minutes: faker.randomGenerator.integer(60)),
+        isPrivate: faker.randomGenerator.boolean(),
         tag: [],
         mediaUrlList: [
           "https://picsum.photos/200?random=${faker.randomGenerator.integer(500)}",

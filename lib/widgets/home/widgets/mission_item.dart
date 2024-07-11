@@ -1,18 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mission_diary/global/gaps.dart';
 import 'package:mission_diary/global/sizes.dart';
+import 'package:mission_diary/models/mission.dart';
+import 'package:mission_diary/util/date_util.dart';
+import 'package:mission_diary/widgets/home/view_model/mission_view_model.dart';
 
-class MissionItem extends StatelessWidget {
+class MissionItem extends ConsumerWidget {
   const MissionItem({
     super.key,
-    // required this.mission,
+    required this.mission,
   });
 
-  // final Mission mission;
+  final Mission mission;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
@@ -31,8 +35,12 @@ class MissionItem extends StatelessWidget {
             child: Row(
               children: [
                 Checkbox(
-                  value: true,
-                  onChanged: (value) => {},
+                  value: mission.isCompleted,
+                  onChanged: (value) =>
+                      ref.read(missionProvider.notifier).updateIsCompleted(
+                            missionId: mission.missionId,
+                            isCompleted: value!,
+                          ),
                 ),
                 Gaps.h10,
                 Expanded(
@@ -43,7 +51,7 @@ class MissionItem extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            "Study Well",
+                            mission.title,
                             style: Theme.of(context)
                                 .textTheme
                                 .labelLarge
@@ -66,7 +74,7 @@ class MissionItem extends StatelessWidget {
                       ),
                       Gaps.v5,
                       Text(
-                        "07:00 ~ 07:15",
+                        "${getHHMM(mission.startAt)} ~ ${getHHMM(mission.endAt)}",
                         style:
                             Theme.of(context).textTheme.labelMedium?.copyWith(
                                   color: Colors.grey,
