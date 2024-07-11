@@ -17,6 +17,8 @@ class _EmojiSliderState extends State<EmojiSlider> {
   late final StateMachineController _controller;
   late final SMINumber position;
 
+  late double _selectedEmoji = _getPosition(widget.score);
+
   double _getPosition(int score) {
     switch (score) {
       case >= 80:
@@ -31,6 +33,14 @@ class _EmojiSliderState extends State<EmojiSlider> {
       default:
         return 0;
     }
+  }
+
+  void onChangedEmoji(RiveEvent event) {
+    final index = event.properties["position"];
+    if (index != null) {
+      _selectedEmoji = index;
+    }
+    print(_selectedEmoji);
   }
 
   @override
@@ -49,6 +59,7 @@ class _EmojiSliderState extends State<EmojiSlider> {
         onInit: (art) {
           _controller =
               StateMachineController.fromArtboard(art, "State Machine 1")!;
+          _controller.addEventListener(onChangedEmoji);
           art.addController(_controller);
 
           position = _controller.findSMI("position");
