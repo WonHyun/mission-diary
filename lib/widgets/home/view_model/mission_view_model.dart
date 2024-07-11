@@ -7,7 +7,8 @@ import 'package:mission_diary/test/mock.dart';
 class MissionViewModel extends AsyncNotifier<List<Mission>> {
   @override
   FutureOr<List<Mission>> build() {
-    return MissionMock.testMission;
+    //TODO: will be fetch from firebase or hive
+    return MissionMock.testMissions;
   }
 
   Future<List<Mission>> fetchTodayMissions() async {

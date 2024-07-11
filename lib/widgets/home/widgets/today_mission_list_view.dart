@@ -12,30 +12,39 @@ class TodayMissionListView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final missions = ref.watch(missionProvider).value ?? [];
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          "Today Mission",
-          style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                fontWeight: FontWeight.w600,
-              ),
-        ),
-        Gaps.v20,
-        ListView.separated(
-          padding: const EdgeInsets.only(bottom: Sizes.size96),
-          shrinkWrap: true,
-          primary: false,
-          separatorBuilder: (context, index) => Gaps.v10,
-          itemCount: missions.length,
-          itemBuilder: (context, index) {
-            return MissionItem(
-              mission: missions[index],
+    return ref.watch(missionProvider).when(
+          data: (missions) {
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Today Mission",
+                  style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                        fontWeight: FontWeight.w600,
+                      ),
+                ),
+                Gaps.v20,
+                ListView.separated(
+                  padding: const EdgeInsets.only(bottom: Sizes.size96),
+                  shrinkWrap: true,
+                  primary: false,
+                  separatorBuilder: (context, index) => Gaps.v10,
+                  itemCount: missions.length,
+                  itemBuilder: (context, index) {
+                    return MissionItem(
+                      mission: missions[index],
+                    );
+                  },
+                ),
+              ],
             );
           },
-        ),
-      ],
-    );
+          error: (err, stack) => Center(
+            child: Text("error: $err"),
+          ),
+          loading: () => const Center(
+            child: CircularProgressIndicator.adaptive(),
+          ),
+        );
   }
 }
