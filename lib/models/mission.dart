@@ -19,7 +19,9 @@ class Mission with _$Mission {
     required DateTime startAt,
     required DateTime endAt,
     required Duration duration,
+    required bool isPrivate,
     required List<String> tag,
+    required List<String> mediaUrlList,
   }) = _Mission;
 
   factory Mission.fromJson(Map<String, dynamic> json) =>
