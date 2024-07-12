@@ -15,7 +15,7 @@ class Post with _$Post {
     required String content,
     required int likes,
     required int commentCounts,
-    required int score,
+    required double score,
     required double satisfiedScore,
     required List<String> mediaUrlList,
     required List<String> commentsIdList,

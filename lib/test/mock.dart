@@ -78,6 +78,45 @@ class MockGenerater {
     return List.generate(
       count,
       (index) {
+        final missions = generateRandomMission(count: 5);
+        final missionStatusSummary = {
+          for (var mission in missions) mission.title: mission.isCompleted
+        };
+
+        double score = 0;
+        for (var mission in missions) {
+          if (mission.isCompleted) {
+            double addScore = 100 / missions.length;
+            switch (mission.frequency) {
+              case MissionFrequency.once:
+                addScore = addScore * 1.0;
+              case MissionFrequency.daily:
+                addScore = addScore * 0.9;
+              case MissionFrequency.weekly:
+                addScore = addScore * 0.8;
+              case MissionFrequency.monthly:
+                addScore = addScore * 0.7;
+            }
+
+            final duration = mission.duration > const Duration(minutes: 15)
+                ? mission.duration
+                : mission.startAt.difference(mission.endAt);
+
+            switch (duration) {
+              case >= const Duration(minutes: 15) &&
+                    < const Duration(minutes: 30):
+                addScore = addScore * 0.8;
+              case >= const Duration(minutes: 30) &&
+                    < const Duration(minutes: 60):
+                addScore = addScore * 0.9;
+              case > const Duration(minutes: 60):
+                addScore = addScore * 1.0;
+            }
+
+            score = score + addScore;
+          }
+        }
+
         return Post(
           postId: uuid.v4(),
           authorId: uuid.v4(),
@@ -90,13 +129,14 @@ class MockGenerater {
           content: faker.lorem.sentence(),
           likes: faker.randomGenerator.integer(100),
           commentCounts: faker.randomGenerator.integer(100),
-          score: faker.randomGenerator.integer(100),
-          satisfiedScore: faker.randomGenerator.integer(5).toDouble(),
+          score: score,
+          satisfiedScore:
+              (score / (100 / missions.length)).truncateToDouble() % 5,
           mediaUrlList: generateRandomMediaUrl(
             count: faker.randomGenerator.integer(4),
           ),
           commentsIdList: [],
-          missionStatusSummary: {},
+          missionStatusSummary: missionStatusSummary,
         );
       },
     );
