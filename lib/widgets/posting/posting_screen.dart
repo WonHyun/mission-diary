@@ -70,7 +70,7 @@ class _PostingScreenState extends ConsumerState<PostingScreen> {
                       fontWeight: FontWeight.w600,
                     ),
               ),
-              EmojiSlider(score: _score.round()),
+              EmojiSlider(score: _score),
               Gaps.v32,
               RoundedButton(
                 onTap: () => {},

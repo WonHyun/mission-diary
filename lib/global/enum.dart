@@ -51,3 +51,5 @@ enum MediaType {
   image,
   video,
 }
+
+enum Rank { F, D, C, B, A, S }

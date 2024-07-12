@@ -36,3 +36,21 @@ double calculateScore(List<Mission> missions) {
       ? 100
       : score;
 }
+
+Rank getRank(double score) {
+  switch (score) {
+    case >= 100:
+      return Rank.S;
+    case >= 70 && < 100:
+      return Rank.A;
+    case >= 50 && < 70:
+      return Rank.B;
+    case >= 30 && < 50:
+      return Rank.C;
+    case >= 10 && < 30:
+      return Rank.D;
+    case >= 0 && < 10:
+    default:
+      return Rank.F;
+  }
+}

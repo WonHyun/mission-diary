@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:mission_diary/global/enum.dart';
+import 'package:mission_diary/util/calculate_util.dart';
 import 'package:rive/rive.dart';
 
 class EmojiSlider extends StatefulWidget {
@@ -7,7 +9,7 @@ class EmojiSlider extends StatefulWidget {
     required this.score,
   });
 
-  final int score;
+  final double score;
 
   @override
   State<EmojiSlider> createState() => _EmojiSliderState();
@@ -19,19 +21,20 @@ class _EmojiSliderState extends State<EmojiSlider> {
 
   late double _selectedEmoji = _getPosition(widget.score);
 
-  double _getPosition(int score) {
-    switch (score) {
-      case >= 80:
-        return 4;
-      case >= 60 && < 80:
-        return 3;
-      case >= 40 && < 60:
-        return 2;
-      case >= 20 && < 40:
-        return 1;
-      case >= 0 && < 20:
-      default:
+  double _getPosition(double score) {
+    Rank rank = getRank(score);
+    switch (rank) {
+      case Rank.F:
         return 0;
+      case Rank.D:
+        return 1;
+      case Rank.C:
+        return 2;
+      case Rank.B:
+        return 3;
+      case Rank.A:
+      case Rank.S:
+        return 4;
     }
   }
 
