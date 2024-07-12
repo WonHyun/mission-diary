@@ -33,3 +33,21 @@ enum MissionFrequency {
   weekly,
   monthly,
 }
+
+enum UserRank {
+  bronze,
+  silver,
+  gold,
+  platinum,
+  diamond,
+}
+
+enum MediaPathType {
+  file,
+  url,
+}
+
+enum MediaType {
+  image,
+  video,
+}

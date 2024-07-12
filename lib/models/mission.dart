@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:mission_diary/global/enum.dart';
+import 'package:mission_diary/models/media_item.dart';
 
 part 'mission.freezed.dart';
 part 'mission.g.dart';
@@ -21,7 +22,7 @@ class Mission with _$Mission {
     required Duration duration,
     required bool isPrivate,
     required List<String> tag,
-    required List<String> mediaUrlList,
+    required List<MediaItem> mediaList,
   }) = _Mission;
 
   factory Mission.fromJson(Map<String, dynamic> json) =>

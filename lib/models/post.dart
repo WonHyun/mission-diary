@@ -12,7 +12,6 @@ class Post with _$Post {
     required String authorImgPath,
     required DateTime createdAt,
     required DateTime editAt,
-    required String title,
     required String content,
     required int likes,
     required int commentCounts,
@@ -20,7 +19,7 @@ class Post with _$Post {
     required double satisfiedScore,
     required List<String> mediaUrlList,
     required List<String> commentsIdList,
-    required List<String> missionsIdList,
+    required Map<String, bool> missionStatusSummary,
   }) = _Post;
 
   factory Post.fromJson(Map<String, dynamic> json) => _$PostFromJson(json);

@@ -20,6 +20,7 @@ class UserProfileViewModel extends AsyncNotifier<UserProfile> {
       bio: "",
       profileImgPath: "",
       createdAt: DateTime.now(),
+      friendList: [],
     );
   }
 
