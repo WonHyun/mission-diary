@@ -3,6 +3,7 @@ import 'package:mission_diary/global/enum.dart';
 import 'package:mission_diary/models/media_item.dart';
 import 'package:mission_diary/models/mission.dart';
 import 'package:mission_diary/models/post.dart';
+import 'package:mission_diary/util/calculate_util.dart';
 import 'package:mission_diary/util/generate_util.dart';
 
 class MockGenerater {
@@ -61,7 +62,7 @@ class MockGenerater {
           endAt: DateTime.now(),
           duration: Duration(
               hours: faker.randomGenerator.boolean() ? 0 : 1,
-              minutes: faker.randomGenerator.integer(60)),
+              minutes: faker.randomGenerator.integer(60, min: 15)),
           isPrivate: faker.randomGenerator.boolean(),
           tag: [],
           mediaList: generateRandomMediaItem(
@@ -83,39 +84,7 @@ class MockGenerater {
           for (var mission in missions) mission.title: mission.isCompleted
         };
 
-        double score = 0;
-        for (var mission in missions) {
-          if (mission.isCompleted) {
-            double addScore = 100 / missions.length;
-            switch (mission.frequency) {
-              case MissionFrequency.once:
-                addScore = addScore * 1.0;
-              case MissionFrequency.daily:
-                addScore = addScore * 0.9;
-              case MissionFrequency.weekly:
-                addScore = addScore * 0.8;
-              case MissionFrequency.monthly:
-                addScore = addScore * 0.7;
-            }
-
-            final duration = mission.duration > const Duration(minutes: 15)
-                ? mission.duration
-                : mission.startAt.difference(mission.endAt);
-
-            switch (duration) {
-              case >= const Duration(minutes: 15) &&
-                    < const Duration(minutes: 30):
-                addScore = addScore * 0.8;
-              case >= const Duration(minutes: 30) &&
-                    < const Duration(minutes: 60):
-                addScore = addScore * 0.9;
-              case > const Duration(minutes: 60):
-                addScore = addScore * 1.0;
-            }
-
-            score = score + addScore;
-          }
-        }
+        double score = calculateScore(missions);
 
         return Post(
           postId: uuid.v4(),
