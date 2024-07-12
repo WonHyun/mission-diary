@@ -32,7 +32,7 @@ double calculateScore(List<Mission> missions) {
       score = score + addScore;
     }
   }
-  return missions.lastIndexWhere((mission) => !mission.isCompleted) < 0
+  return missions.where((mission) => !mission.isCompleted).isEmpty
       ? 100
       : score;
 }

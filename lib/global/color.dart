@@ -7,4 +7,5 @@ class ThemeColors {
   static const lightGreen = Color(0xFF81E89E);
   static const vividTangerine = Color(0xFFF0A58E);
   static const slateDarkBlue = Color(0xFF2C406E);
+  static const seaShell = Color(0xFFFFEFFB);
 }

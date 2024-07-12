@@ -44,7 +44,7 @@ class _MainNavigatorState extends State<MainNavigator> {
                 tappable: false,
                 openColor: Theme.of(context).colorScheme.surface,
                 openBuilder: (context, openCallback) => const PostingScreen(),
-                openElevation: 3,
+                openElevation: 1,
                 transitionType: ContainerTransitionType.fadeThrough,
                 transitionDuration: const Duration(milliseconds: 500),
                 closedShape: RoundedRectangleBorder(
@@ -53,7 +53,7 @@ class _MainNavigatorState extends State<MainNavigator> {
                 closedColor: isDarkMode(context)
                     ? Colors.grey.shade900
                     : Theme.of(context).colorScheme.surface,
-                closedElevation: 3,
+                closedElevation: 1,
                 closedBuilder: (context, openCallback) {
                   return Container(
                     padding: const EdgeInsets.symmetric(
