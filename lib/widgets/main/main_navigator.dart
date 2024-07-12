@@ -11,7 +11,7 @@ import 'package:mission_diary/widgets/common/gradient_button.dart';
 import 'package:mission_diary/widgets/feed/feed_screen.dart';
 import 'package:mission_diary/widgets/home/home_screen.dart';
 import 'package:mission_diary/widgets/main/widgets/navigator_menu_icon.dart';
-import 'package:mission_diary/widgets/posting/posting_screen.dart';
+import 'package:mission_diary/widgets/posting/mission_status_screen.dart';
 import 'package:mission_diary/widgets/user_profile/user_profile_screen.dart';
 
 class MainNavigator extends StatefulWidget {
@@ -43,7 +43,8 @@ class _MainNavigatorState extends State<MainNavigator> {
               child: OpenContainer(
                 tappable: false,
                 openColor: Theme.of(context).colorScheme.surface,
-                openBuilder: (context, openCallback) => const PostingScreen(),
+                openBuilder: (context, openCallback) =>
+                    const MissionStatusScreen(),
                 openElevation: 1,
                 transitionType: ContainerTransitionType.fadeThrough,
                 transitionDuration: const Duration(milliseconds: 500),

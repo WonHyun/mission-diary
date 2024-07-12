@@ -9,11 +9,13 @@ class RankIcon extends StatelessWidget {
   const RankIcon({
     super.key,
     required this.rank,
-    this.size = Sizes.size24,
+    this.size = Sizes.size16,
+    this.useInSurface = false,
   });
 
   final Rank rank;
   final double size;
+  final bool useInSurface;
 
   IconData _getRankIcon(Rank rank) {
     switch (rank) {
@@ -32,13 +34,15 @@ class RankIcon extends StatelessWidget {
     }
   }
 
-  Color _getRankColor(Rank rank) {
+  Color _getRankColor(BuildContext context, Rank rank) {
     switch (rank) {
       case Rank.F:
         return Colors.red;
       case Rank.D:
       case Rank.C:
-        return Colors.white;
+        return useInSurface
+            ? Theme.of(context).colorScheme.inverseSurface
+            : Theme.of(context).colorScheme.surface;
       case Rank.B:
       case Rank.A:
         return ThemeColors.lightGreen;
@@ -51,24 +55,27 @@ class RankIcon extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       alignment: Alignment.center,
-      padding: const EdgeInsets.all(Sizes.size14),
+      padding: const EdgeInsets.all(Sizes.size12),
       decoration: BoxDecoration(
         shape: BoxShape.circle,
         border: Border.all(
           width: Sizes.size3,
-          color: _getRankColor(rank),
+          color: _getRankColor(context, rank),
         ),
       ),
       child: Column(
         children: [
           Text(
             "Rank",
-            style: TextStyle(color: _getRankColor(rank)),
+            style: TextStyle(
+              color: _getRankColor(context, rank),
+              fontSize: size,
+            ),
           ),
           Gaps.v5,
           Icon(
             _getRankIcon(rank),
-            color: _getRankColor(rank),
+            color: _getRankColor(context, rank),
             size: size,
           ),
         ],

@@ -19,6 +19,8 @@ class EmojiSlider extends StatefulWidget {
 }
 
 class _EmojiSliderState extends State<EmojiSlider> {
+  final GlobalKey _key = GlobalKey();
+
   late final StateMachineController _controller;
   late final SMINumber position;
 
@@ -66,7 +68,7 @@ class _EmojiSliderState extends State<EmojiSlider> {
   @override
   Widget build(BuildContext context) {
     return VisibilityDetector(
-      key: const Key("emoji-slider"),
+      key: _key,
       onVisibilityChanged: _onVisiblityChanged,
       child: SizedBox(
         height: widget.height,
