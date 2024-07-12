@@ -6,7 +6,6 @@ import 'package:mission_diary/models/post.dart';
 import 'package:mission_diary/util/calculate_util.dart';
 import 'package:mission_diary/util/date_util.dart';
 import 'package:mission_diary/widgets/common/rank_icon.dart';
-import 'package:mission_diary/widgets/common/satisfied_emoji.dart';
 
 class PostSummaryView extends StatelessWidget {
   const PostSummaryView({
@@ -52,6 +51,7 @@ class PostSummaryView extends StatelessWidget {
                     getYYYYMMDD(post.createdAt),
                     style: const TextStyle(
                       color: Colors.white,
+                      fontWeight: FontWeight.w600,
                     ),
                   ),
                   Gaps.v5,
@@ -59,13 +59,15 @@ class PostSummaryView extends StatelessWidget {
                     "Completed: ${post.missionStatusSummary.values.where((isCompleted) => isCompleted).length}/${post.missionStatusSummary.length}",
                     style: const TextStyle(
                       color: Colors.white,
+                      fontSize: Sizes.size16,
                     ),
                   ),
                   Gaps.v5,
                   Text(
-                    "Score: ${post.score.round()}",
+                    "Total Score: ${post.score.round()}",
                     style: const TextStyle(
                       color: Colors.white,
+                      fontSize: Sizes.size16,
                     ),
                   ),
                 ],
@@ -73,10 +75,6 @@ class PostSummaryView extends StatelessWidget {
             ),
             Gaps.h5,
             RankIcon(rank: getRank(post.score)),
-            Gaps.h5,
-            SatisfiedEmoji(
-              satisfiedScore: post.satisfiedScore,
-            ),
           ],
         ),
       ),

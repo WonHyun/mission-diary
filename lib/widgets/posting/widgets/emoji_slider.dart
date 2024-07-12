@@ -7,9 +7,11 @@ class EmojiSlider extends StatefulWidget {
   const EmojiSlider({
     super.key,
     required this.score,
+    this.height = 200,
   });
 
   final double score;
+  final double height;
 
   @override
   State<EmojiSlider> createState() => _EmojiSliderState();
@@ -55,7 +57,7 @@ class _EmojiSliderState extends State<EmojiSlider> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 200,
+      height: widget.height,
       child: RiveAnimation.asset(
         "assets/animations/emoji_satisfaction_meter.riv",
         stateMachines: const ["State Machine 1"],
