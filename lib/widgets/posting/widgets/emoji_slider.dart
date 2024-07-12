@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mission_diary/global/enum.dart';
 import 'package:mission_diary/util/calculate_util.dart';
 import 'package:rive/rive.dart';
+import 'package:visibility_detector/visibility_detector.dart';
 
 class EmojiSlider extends StatefulWidget {
   const EmojiSlider({
@@ -48,6 +49,14 @@ class _EmojiSliderState extends State<EmojiSlider> {
     print(_selectedEmoji);
   }
 
+  void _onVisiblityChanged(VisibilityInfo info) {
+    if (info.visibleFraction == 0) {
+      _controller.isActive = false;
+    } else {
+      _controller.isActive = true;
+    }
+  }
+
   @override
   void dispose() {
     _controller.dispose();
@@ -56,25 +65,30 @@ class _EmojiSliderState extends State<EmojiSlider> {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: widget.height,
-      child: RiveAnimation.asset(
-        "assets/animations/emoji_satisfaction_meter.riv",
-        stateMachines: const ["State Machine 1"],
-        onInit: (art) {
-          _controller =
-              StateMachineController.fromArtboard(art, "State Machine 1")!;
-          _controller.addEventListener(onChangedEmoji);
-          art.addController(_controller);
+    return VisibilityDetector(
+      key: const Key("emoji-slider"),
+      onVisibilityChanged: _onVisiblityChanged,
+      child: SizedBox(
+        height: widget.height,
+        child: RiveAnimation.asset(
+          "assets/animations/emoji_satisfaction_meter.riv",
+          stateMachines: const ["State Machine 1"],
+          onInit: (art) {
+            _controller =
+                StateMachineController.fromArtboard(art, "State Machine 1")!;
+            _controller.addEventListener(onChangedEmoji);
+            _controller.isActive = false;
+            art.addController(_controller);
 
-          position = _controller.findSMI("position");
-          position.value = _getPosition(widget.score);
-        },
-        fit: BoxFit.contain,
-        placeHolder: Container(
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            color: Theme.of(context).colorScheme.primary,
+            position = _controller.findSMI("position");
+            position.value = _getPosition(widget.score);
+          },
+          fit: BoxFit.contain,
+          placeHolder: Container(
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: Theme.of(context).colorScheme.primary,
+            ),
           ),
         ),
       ),

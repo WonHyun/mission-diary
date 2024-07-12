@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mission_diary/global/gaps.dart';
@@ -46,19 +47,12 @@ class _FeedScreenState extends ConsumerState<FeedScreen> {
                   },
                   child: CustomScrollView(
                     slivers: [
-                      SliverToBoxAdapter(
-                        child: Column(
-                          children: [
-                            ListView.separated(
-                                shrinkWrap: true,
-                                primary: false,
-                                separatorBuilder: (context, index) => Gaps.v20,
-                                itemCount: posts.length,
-                                itemBuilder: (context, index) {
-                                  return PostView(post: posts[index]);
-                                }),
-                          ],
-                        ),
+                      SliverList.separated(
+                        separatorBuilder: (context, index) => Gaps.v20,
+                        itemCount: posts.length,
+                        itemBuilder: (context, index) {
+                          return PostView(post: posts[index]);
+                        },
                       ),
                     ],
                   ),
