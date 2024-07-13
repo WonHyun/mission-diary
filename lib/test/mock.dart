@@ -66,7 +66,7 @@ class MockGenerater {
           isPrivate: faker.randomGenerator.boolean(),
           tag: [],
           mediaList: generateRandomMediaItem(
-            count: faker.randomGenerator.integer(1),
+            count: faker.randomGenerator.integer(2, min: 1),
           ),
         );
       },
