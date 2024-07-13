@@ -9,12 +9,16 @@ import 'package:mission_diary/util/calculate_util.dart';
 import 'package:mission_diary/widgets/common/constrainted_body.dart';
 import 'package:mission_diary/widgets/common/rank_icon.dart';
 import 'package:mission_diary/widgets/common/rounded_button.dart';
+import 'package:mission_diary/widgets/feed/feed_screen.dart';
 import 'package:mission_diary/widgets/home/view_model/mission_view_model.dart';
 import 'package:mission_diary/widgets/posting/posting_screen.dart';
 import 'package:mission_diary/widgets/posting/widgets/emoji_slider.dart';
 
 class MissionStatusScreen extends ConsumerStatefulWidget {
   const MissionStatusScreen({super.key});
+
+  static const String routePath = "/mission-status";
+  static const String routeName = "mission-status";
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
@@ -24,13 +28,6 @@ class MissionStatusScreen extends ConsumerStatefulWidget {
 class _MissionStatusScreenState extends ConsumerState<MissionStatusScreen> {
   late double _score;
   late Rank _rank;
-
-  @override
-  void initState() {
-    super.initState();
-    _score = calculateScore(ref.read(missionProvider).value!);
-    _rank = getRank(_score);
-  }
 
   String _getRankFeedback(Rank rank) {
     switch (rank) {
@@ -47,6 +44,28 @@ class _MissionStatusScreenState extends ConsumerState<MissionStatusScreen> {
       case Rank.S:
         return "Perfect Day!";
     }
+  }
+
+  Future<void> _onTapGotoShare() async {
+    final result = await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const PostingScreen(),
+      ),
+    );
+    if (result != null) {
+      if (mounted) {
+        context.goNamed(FeedScreen.routeName);
+        context.pop();
+      }
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _score = calculateScore(ref.read(missionProvider).value!);
+    _rank = getRank(_score);
   }
 
   @override
@@ -115,12 +134,7 @@ class _MissionStatusScreenState extends ConsumerState<MissionStatusScreen> {
               EmojiSlider(score: _score, height: 150),
               Gaps.v32,
               RoundedButton(
-                onTap: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const PostingScreen(),
-                  ),
-                ),
+                onTap: _onTapGotoShare,
                 text: "Go to Share",
                 fontColor: Colors.white,
                 backgroundColor: Theme.of(context).colorScheme.primary,

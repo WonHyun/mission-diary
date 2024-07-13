@@ -66,7 +66,7 @@ class MockGenerater {
           isPrivate: faker.randomGenerator.boolean(),
           tag: [],
           mediaList: generateRandomMediaItem(
-            count: faker.randomGenerator.integer(4),
+            count: faker.randomGenerator.integer(1),
           ),
         );
       },
@@ -99,8 +99,6 @@ class MockGenerater {
           likes: faker.randomGenerator.integer(100),
           commentCounts: faker.randomGenerator.integer(100),
           score: score,
-          satisfiedScore:
-              (score / (100 / missions.length)).truncateToDouble() % 5,
           mediaUrlList: generateRandomMediaUrl(
             count: faker.randomGenerator.integer(4),
           ),

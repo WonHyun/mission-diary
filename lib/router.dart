@@ -10,6 +10,8 @@ import 'package:mission_diary/widgets/authentication/sign_up_screen.dart';
 import 'package:mission_diary/widgets/feed/feed_screen.dart';
 import 'package:mission_diary/widgets/home/home_screen.dart';
 import 'package:mission_diary/widgets/main/main_navigator.dart';
+import 'package:mission_diary/widgets/posting/mission_status_screen.dart';
+import 'package:mission_diary/widgets/posting/posting_screen.dart';
 import 'package:mission_diary/widgets/setting/setting_screen.dart';
 import 'package:mission_diary/widgets/user_profile/user_profile_edit_screen.dart';
 import 'package:mission_diary/widgets/user_profile/user_profile_screen.dart';
@@ -57,6 +59,16 @@ final routerProvider = Provider(
           name: UserProfileEditScreen.routeName,
           path: UserProfileEditScreen.routePath,
           builder: (context, state) => const UserProfileEditScreen(),
+        ),
+        GoRoute(
+          name: MissionStatusScreen.routeName,
+          path: MissionStatusScreen.routePath,
+          builder: (context, state) => const MissionStatusScreen(),
+        ),
+        GoRoute(
+          name: PostingScreen.routeName,
+          path: PostingScreen.routePath,
+          builder: (context, state) => const PostingScreen(),
         ),
         ShellRoute(
           parentNavigatorKey: _rootNavigatorKey,
