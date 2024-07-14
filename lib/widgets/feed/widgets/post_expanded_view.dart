@@ -4,7 +4,7 @@ import 'package:mission_diary/global/sizes.dart';
 import 'package:mission_diary/models/post.dart';
 import 'package:mission_diary/widgets/feed/widgets/post_media_list_view.dart';
 import 'package:mission_diary/widgets/feed/widgets/post_mission_list_view.dart';
-import 'package:mission_diary/widgets/posting/widgets/emoji_slider.dart';
+import 'package:mission_diary/widgets/common/emoji_slider.dart';
 
 class PostExpandedView extends StatelessWidget {
   const PostExpandedView({

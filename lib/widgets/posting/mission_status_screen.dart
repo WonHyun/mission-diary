@@ -12,7 +12,7 @@ import 'package:mission_diary/widgets/common/rounded_button.dart';
 import 'package:mission_diary/widgets/feed/feed_screen.dart';
 import 'package:mission_diary/widgets/home/view_model/mission_view_model.dart';
 import 'package:mission_diary/widgets/posting/posting_screen.dart';
-import 'package:mission_diary/widgets/posting/widgets/emoji_slider.dart';
+import 'package:mission_diary/widgets/common/emoji_slider.dart';
 
 class MissionStatusScreen extends ConsumerStatefulWidget {
   const MissionStatusScreen({super.key});
