@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mission_diary/global/gaps.dart';
-import 'package:mission_diary/global/sizes.dart';
+import 'package:mission_diary/widgets/common/check_circle.dart';
 import 'package:mission_diary/widgets/common/safe_image.dart';
 import 'package:mission_diary/widgets/posting/view_model/media_view_model.dart';
 
@@ -28,41 +27,29 @@ class PostingMediaListView extends ConsumerWidget {
                 itemCount: medias.length,
                 itemBuilder: (context, index) {
                   final media = medias[index];
-                  return Stack(
-                    children: [
-                      Container(
-                        width: width,
-                        clipBehavior: Clip.hardEdge,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: SafeImage(
-                          path: media.path,
-                          pathType: media.mediaPathType,
-                        ),
-                      ),
-                      Positioned(
-                        top: 8,
-                        right: 8,
-                        child: GestureDetector(
-                          onTap: () => ref
-                              .read(mediaProvider.notifier)
-                              .deleteMedia(media),
-                          child: Container(
-                            padding: const EdgeInsets.all(Sizes.size8),
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: Colors.black.withOpacity(0.5),
-                            ),
-                            child: const FaIcon(
-                              FontAwesomeIcons.x,
-                              size: Sizes.size12,
-                              color: Colors.white,
-                            ),
+                  return GestureDetector(
+                    onTap: () =>
+                        ref.read(mediaProvider.notifier).selectMedia(media),
+                    child: Stack(
+                      children: [
+                        Container(
+                          width: width,
+                          clipBehavior: Clip.hardEdge,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: SafeImage(
+                            path: media.path,
+                            pathType: media.mediaPathType,
                           ),
                         ),
-                      ),
-                    ],
+                        Positioned(
+                          top: 8,
+                          left: 8,
+                          child: CheckCircle(isChecked: media.isSelected),
+                        ),
+                      ],
+                    ),
                   );
                 },
               ),

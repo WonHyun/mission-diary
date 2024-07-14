@@ -27,7 +27,12 @@ class _PostingScreenState extends ConsumerState<PostingScreen> {
   Future<void> _onTapShare() async {
     final result = await ref.read(postingProvider.notifier).completePosting(
           content: _controller.text,
-          selectedMedia: ref.read(mediaProvider).value ?? [],
+          selectedMedia: ref
+                  .read(mediaProvider)
+                  .value
+                  ?.where((media) => media.isSelected)
+                  .toList() ??
+              [],
         );
 
     if (result != null && mounted) {
@@ -81,11 +86,37 @@ class _PostingScreenState extends ConsumerState<PostingScreen> {
                   ),
                 ),
                 Gaps.v20,
-                Text(
-                  "Select Photos",
-                  style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                        fontWeight: FontWeight.w600,
-                      ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "Select Photos",
+                      style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                            fontWeight: FontWeight.w600,
+                          ),
+                    ),
+                    Row(
+                      children: [
+                        GestureDetector(
+                          onTap: () =>
+                              ref.read(mediaProvider.notifier).selectAll(true),
+                          child: const Icon(
+                            FontAwesomeIcons.images,
+                            size: Sizes.size20,
+                          ),
+                        ),
+                        Gaps.h16,
+                        GestureDetector(
+                          onTap: () =>
+                              ref.read(mediaProvider.notifier).selectAll(false),
+                          child: const Icon(
+                            Icons.image_not_supported_rounded,
+                            size: Sizes.size20,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
                 Gaps.v20,
                 const PostingMediaListView(),

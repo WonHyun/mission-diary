@@ -12,6 +12,7 @@ class MediaItem with _$MediaItem {
     required MediaPathType mediaPathType,
     required String path,
     required Map<String, dynamic> metadata,
+    required bool isSelected,
   }) = _MediaItem;
 
   factory MediaItem.fromJson(Map<String, dynamic> json) =>

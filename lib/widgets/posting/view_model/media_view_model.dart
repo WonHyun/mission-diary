@@ -15,12 +15,25 @@ class MediaViewModel extends AutoDisposeAsyncNotifier<List<MediaItem>> {
     return missions.expand((mission) => mission.mediaList).toList();
   }
 
-  void deleteMedia(MediaItem media) {
+  void selectAll(bool isSelected) {
     if (state.value == null) return;
     state = AsyncValue.data(
-      state.value!
-          .where((element) => element.mediaId != media.mediaId)
-          .toList(),
+      state.value!.map((element) {
+        return element.copyWith(isSelected: isSelected);
+      }).toList(),
+    );
+  }
+
+  void selectMedia(MediaItem media) {
+    if (state.value == null) return;
+    state = AsyncValue.data(
+      state.value!.map((element) {
+        if (element.mediaId == media.mediaId) {
+          return element.copyWith(isSelected: !element.isSelected);
+        } else {
+          return element;
+        }
+      }).toList(),
     );
   }
 }

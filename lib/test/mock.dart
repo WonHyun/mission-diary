@@ -22,6 +22,7 @@ class MockGenerater {
           path:
               "https://picsum.photos/$width/$height/?random=${faker.randomGenerator.integer(500)}",
           metadata: {},
+          isSelected: false,
         );
       },
     );
