@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mission_diary/global/color.dart';
 import 'package:mission_diary/global/gaps.dart';
 import 'package:mission_diary/global/sizes.dart';
 import 'package:mission_diary/global/value.dart';
@@ -12,10 +13,12 @@ class PostSummaryView extends StatelessWidget {
     super.key,
     required this.post,
     required this.onTap,
+    this.isMine = false,
   });
 
   final Post post;
   final Function() onTap;
+  final bool isMine;
 
   @override
   Widget build(BuildContext context) {
@@ -28,8 +31,13 @@ class PostSummaryView extends StatelessWidget {
           vertical: Sizes.size10,
         ),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-          color: Theme.of(context).colorScheme.primary,
+          borderRadius: BorderRadius.only(
+            topRight: Radius.circular(isMine ? 0 : 10),
+            topLeft: Radius.circular(isMine ? 10 : 0),
+            bottomLeft: const Radius.circular(10),
+            bottomRight: const Radius.circular(10),
+          ),
+          color: isMine ? ThemeColors.slateDarkBlue : ThemeColors.slateBlue,
           boxShadow: isDarkMode(context)
               ? null
               : [
@@ -52,6 +60,7 @@ class PostSummaryView extends StatelessWidget {
                     style: const TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.w600,
+                      fontSize: Sizes.size16,
                     ),
                   ),
                   Gaps.v5,

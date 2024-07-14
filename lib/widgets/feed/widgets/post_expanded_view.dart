@@ -31,7 +31,7 @@ class PostExpandedView extends StatelessWidget {
         horizontal: Sizes.size10,
       ),
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.secondary.withOpacity(0.5),
+        color: Colors.grey.shade300,
         borderRadius: const BorderRadius.only(
           bottomLeft: Radius.circular(10),
           bottomRight: Radius.circular(10),
@@ -45,6 +45,7 @@ class PostExpandedView extends StatelessWidget {
               "Missions Status",
               style: TextStyle(
                 fontWeight: FontWeight.w600,
+                color: Colors.black,
               ),
             ),
             EmojiSlider(
@@ -61,7 +62,9 @@ class PostExpandedView extends StatelessWidget {
               post.content,
               overflow: TextOverflow.ellipsis,
               maxLines: 5,
-              style: Theme.of(context).textTheme.bodyMedium,
+              style: const TextStyle(
+                color: Colors.black,
+              ),
             ),
             Gaps.v10,
             if (post.mediaUrlList.isNotEmpty) PostMediaListView(post: post),

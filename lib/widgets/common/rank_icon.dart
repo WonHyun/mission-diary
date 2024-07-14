@@ -42,7 +42,7 @@ class RankIcon extends StatelessWidget {
       case Rank.C:
         return useInSurface
             ? Theme.of(context).colorScheme.inverseSurface
-            : Theme.of(context).colorScheme.surface;
+            : Colors.white;
       case Rank.B:
       case Rank.A:
         return ThemeColors.lightGreen;
