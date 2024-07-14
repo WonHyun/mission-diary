@@ -14,7 +14,7 @@ class PostRepository {
         .collection("posts")
         .where("isReported", isEqualTo: false)
         .orderBy("createdAt", descending: true)
-        .limit(3);
+        .limit(4);
 
     if (lastDocument != null && !isRefresh) {
       query = query.startAfterDocument(lastDocument!);
