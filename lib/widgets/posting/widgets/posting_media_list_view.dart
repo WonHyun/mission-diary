@@ -57,6 +57,7 @@ class PostingMediaListView extends ConsumerWidget {
                             child: const FaIcon(
                               FontAwesomeIcons.x,
                               size: Sizes.size12,
+                              color: Colors.white,
                             ),
                           ),
                         ),
