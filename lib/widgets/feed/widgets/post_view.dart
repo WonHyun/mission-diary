@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:mission_diary/global/enum.dart';
 import 'package:mission_diary/global/gaps.dart';
 import 'package:mission_diary/models/post.dart';
+import 'package:mission_diary/widgets/feed/view_model/feed_view_model.dart';
 import 'package:mission_diary/widgets/feed/widgets/post_expanded_view.dart';
 import 'package:mission_diary/widgets/feed/widgets/post_header.dart';
 import 'package:mission_diary/widgets/feed/widgets/post_summary_view.dart';
@@ -23,6 +25,32 @@ class PostView extends ConsumerStatefulWidget {
 class _PostViewState extends ConsumerState<PostView> {
   bool _isExpaneded = false;
 
+  void _onSelectMenu(PopupMenu menu) {
+    switch (menu) {
+      case PopupMenu.edit:
+      case PopupMenu.share:
+      case PopupMenu.report:
+        return;
+      case PopupMenu.delete:
+        _onDeletePost();
+    }
+  }
+
+  Future<void> _onDeletePost() async {
+    final result =
+        await ref.read(feedProvider.notifier).deletePost(widget.post.postId);
+    if (mounted) {
+      if (result != null) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            showCloseIcon: true,
+            content: Text(result),
+          ),
+        );
+      }
+    }
+  }
+
   @override
   void initState() {
     super.initState();
@@ -38,7 +66,10 @@ class _PostViewState extends ConsumerState<PostView> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    PostHeader(post: widget.post),
+                    PostHeader(
+                      post: widget.post,
+                      onSelectMenu: _onSelectMenu,
+                    ),
                     Gaps.v5,
                     PostSummaryView(
                       post: widget.post,
@@ -67,7 +98,10 @@ class _PostViewState extends ConsumerState<PostView> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    PostHeader(post: widget.post),
+                    PostHeader(
+                      post: widget.post,
+                      onSelectMenu: _onSelectMenu,
+                    ),
                     Gaps.v5,
                     PostSummaryView(
                       post: widget.post,

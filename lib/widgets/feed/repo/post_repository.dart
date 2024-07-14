@@ -1,9 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mission_diary/models/post.dart';
 
 class PostRepository {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
+  final FirebaseStorage _storage = FirebaseStorage.instance;
 
   DocumentSnapshot? lastDocument;
 
@@ -28,6 +30,16 @@ class PostRepository {
         .toList();
 
     return posts;
+  }
+
+  Future<void> deletePost(String postId) async {
+    await _db.collection("posts").doc(postId).delete();
+
+    // Delete Post medias
+    final result = await _storage.ref('posts/$postId/medias').listAll();
+    for (var item in result.items) {
+      await item.delete();
+    }
   }
 }
 

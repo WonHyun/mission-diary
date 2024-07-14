@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mission_diary/models/post.dart';
 import 'package:mission_diary/widgets/feed/repo/post_repository.dart';
@@ -30,6 +31,24 @@ class FeedViewModel extends AsyncNotifier<List<Post>> {
         return [...state.value!, ...nextPosts];
       },
     );
+  }
+
+  Future<String?> deletePost(String postId) async {
+    state = const AsyncValue.loading();
+    state = await AsyncValue.guard(
+      () async {
+        await _repository.deletePost(postId);
+        return [...state.value!.where((post) => post.postId != postId)];
+      },
+    );
+    if (state.hasError) {
+      if (state.error != null && state.error is FirebaseException) {
+        return (state.error as FirebaseException).message;
+      } else {
+        return "Unknown Exception during delete, please try later.";
+      }
+    }
+    return null;
   }
 }
 

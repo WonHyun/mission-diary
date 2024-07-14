@@ -1,3 +1,6 @@
+import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 enum BoxName {
   settings,
 }
@@ -53,3 +56,38 @@ enum MediaType {
 }
 
 enum Rank { F, D, C, B, A, S }
+
+enum PopupMenu {
+  edit,
+  share,
+  report,
+  delete,
+}
+
+extension PopupMenuExtension on PopupMenu {
+  IconData get icon {
+    switch (this) {
+      case PopupMenu.edit:
+        return FontAwesomeIcons.pen;
+      case PopupMenu.share:
+        return FontAwesomeIcons.shareFromSquare;
+      case PopupMenu.report:
+        return FontAwesomeIcons.flag;
+      case PopupMenu.delete:
+        return FontAwesomeIcons.trashCan;
+    }
+  }
+
+  String get text {
+    switch (this) {
+      case PopupMenu.edit:
+        return "Edit";
+      case PopupMenu.share:
+        return "Share";
+      case PopupMenu.report:
+        return "Report";
+      case PopupMenu.delete:
+        return "Delete";
+    }
+  }
+}
