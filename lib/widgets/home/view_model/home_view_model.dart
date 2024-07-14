@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mission_diary/models/mission.dart';
 import 'package:mission_diary/test/mock.dart';
 
-class MissionViewModel extends AsyncNotifier<List<Mission>> {
+class MissionListViewModel extends AsyncNotifier<List<Mission>> {
   @override
   FutureOr<List<Mission>> build() {
     //TODO: will be fetch from firebase or hive
@@ -36,6 +36,7 @@ class MissionViewModel extends AsyncNotifier<List<Mission>> {
   }
 }
 
-final missionProvider = AsyncNotifierProvider<MissionViewModel, List<Mission>>(
-  () => MissionViewModel(),
+final missionListProvider =
+    AsyncNotifierProvider<MissionListViewModel, List<Mission>>(
+  () => MissionListViewModel(),
 );

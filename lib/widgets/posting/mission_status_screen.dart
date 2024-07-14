@@ -10,7 +10,7 @@ import 'package:mission_diary/widgets/common/constrainted_body.dart';
 import 'package:mission_diary/widgets/common/rank_icon.dart';
 import 'package:mission_diary/widgets/common/rounded_button.dart';
 import 'package:mission_diary/widgets/feed/feed_screen.dart';
-import 'package:mission_diary/widgets/home/view_model/mission_view_model.dart';
+import 'package:mission_diary/widgets/home/view_model/home_view_model.dart';
 import 'package:mission_diary/widgets/posting/posting_screen.dart';
 import 'package:mission_diary/widgets/common/emoji_slider.dart';
 
@@ -64,13 +64,13 @@ class _MissionStatusScreenState extends ConsumerState<MissionStatusScreen> {
   @override
   void initState() {
     super.initState();
-    _score = calculateScore(ref.read(missionProvider).value!);
+    _score = calculateScore(ref.read(missionListProvider).value!);
     _rank = getRank(_score);
   }
 
   @override
   Widget build(BuildContext context) {
-    final missions = ref.watch(missionProvider).value!;
+    final missions = ref.watch(missionListProvider).value!;
     return Scaffold(
       body: ConstraintedBody(
         alignment: Alignment.topCenter,

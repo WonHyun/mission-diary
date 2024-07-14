@@ -9,8 +9,10 @@ import 'package:mission_diary/widgets/authentication/repo/authentication_reposit
 import 'package:mission_diary/widgets/authentication/sign_up_screen.dart';
 import 'package:mission_diary/widgets/feed/feed_screen.dart';
 import 'package:mission_diary/widgets/home/home_screen.dart';
-import 'package:mission_diary/widgets/home/mission_edit_screen.dart';
+import 'package:mission_diary/widgets/mission/mission_add_screen.dart';
+import 'package:mission_diary/widgets/mission/mission_edit_screen.dart';
 import 'package:mission_diary/widgets/main/main_navigator.dart';
+import 'package:mission_diary/widgets/mission/mission_type_list_screen.dart';
 import 'package:mission_diary/widgets/posting/mission_status_screen.dart';
 import 'package:mission_diary/widgets/posting/posting_screen.dart';
 import 'package:mission_diary/widgets/setting/setting_screen.dart';
@@ -70,6 +72,26 @@ final routerProvider = Provider(
           name: PostingScreen.routeName,
           path: PostingScreen.routePath,
           builder: (context, state) => const PostingScreen(),
+        ),
+        GoRoute(
+          path: MissionTypeListScreen.routePath,
+          name: MissionTypeListScreen.routeName,
+          builder: (context, state) => const MissionTypeListScreen(),
+        ),
+        GoRoute(
+          path: MissionAddScreen.routePath,
+          name: MissionAddScreen.routeName,
+          builder: (context, state) {
+            MissionType type;
+            if (state.extra is MissionType) {
+              type = state.extra as MissionType;
+            } else {
+              type = MissionType.etc;
+            }
+            return MissionAddScreen(
+              type: type,
+            );
+          },
         ),
         GoRoute(
           path: MissionEditScreen.routePath,

@@ -5,9 +5,9 @@ import 'package:go_router/go_router.dart';
 import 'package:mission_diary/global/gaps.dart';
 import 'package:mission_diary/global/sizes.dart';
 import 'package:mission_diary/widgets/common/rounded_button.dart';
-import 'package:mission_diary/widgets/home/mission_edit_screen.dart';
-import 'package:mission_diary/widgets/home/view_model/mission_view_model.dart';
+import 'package:mission_diary/widgets/home/view_model/home_view_model.dart';
 import 'package:mission_diary/widgets/home/widgets/mission_item.dart';
+import 'package:mission_diary/widgets/mission/mission_type_list_screen.dart';
 
 class TodayMissionListView extends ConsumerWidget {
   const TodayMissionListView({
@@ -16,7 +16,7 @@ class TodayMissionListView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return ref.watch(missionProvider).when(
+    return ref.watch(missionListProvider).when(
           data: (missions) {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -29,7 +29,8 @@ class TodayMissionListView extends ConsumerWidget {
                 ),
                 Gaps.v20,
                 RoundedButton(
-                  onTap: () => context.pushNamed(MissionEditScreen.routeName),
+                  onTap: () =>
+                      context.pushNamed(MissionTypeListScreen.routeName),
                   backgroundColor: Theme.of(context).colorScheme.primary,
                   centerWidget: const FaIcon(
                     FontAwesomeIcons.plus,

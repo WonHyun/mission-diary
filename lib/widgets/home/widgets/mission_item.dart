@@ -5,7 +5,7 @@ import 'package:mission_diary/global/gaps.dart';
 import 'package:mission_diary/global/sizes.dart';
 import 'package:mission_diary/models/mission.dart';
 import 'package:mission_diary/util/date_util.dart';
-import 'package:mission_diary/widgets/home/view_model/mission_view_model.dart';
+import 'package:mission_diary/widgets/home/view_model/home_view_model.dart';
 
 class MissionItem extends ConsumerWidget {
   const MissionItem({
@@ -37,7 +37,7 @@ class MissionItem extends ConsumerWidget {
                 Checkbox(
                   value: mission.isCompleted,
                   onChanged: (value) =>
-                      ref.read(missionProvider.notifier).updateIsCompleted(
+                      ref.read(missionListProvider.notifier).updateIsCompleted(
                             missionId: mission.missionId,
                             isCompleted: value!,
                           ),
