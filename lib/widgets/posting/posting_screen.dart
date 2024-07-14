@@ -1,7 +1,12 @@
+import 'dart:io';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:mission_diary/global/gaps.dart';
 import 'package:mission_diary/global/sizes.dart';
 import 'package:mission_diary/widgets/common/constrainted_body.dart';
@@ -21,12 +26,12 @@ class PostingScreen extends ConsumerStatefulWidget {
 }
 
 class _PostingScreenState extends ConsumerState<PostingScreen> {
-  late final TextEditingController _controller =
+  late final TextEditingController _contentController =
       TextEditingController(text: "");
 
   Future<void> _onTapShare() async {
     final result = await ref.read(postingProvider.notifier).completePosting(
-          content: _controller.text,
+          content: _contentController.text,
           selectedMedia: ref
                   .read(mediaProvider)
                   .value
@@ -49,6 +54,34 @@ class _PostingScreenState extends ConsumerState<PostingScreen> {
     }
   }
 
+  Future<void> _pickImagesFromGallery() async {
+    final files = await ImagePicker().pickMultiImage();
+    await ref
+        .read(mediaProvider.notifier)
+        .addImages(files.map((file) => file.path).toList());
+  }
+
+  Future<void> _pickImagesFromCamera() async {
+    final files = [
+      await ImagePicker().pickImage(source: ImageSource.camera),
+    ];
+    await ref
+        .read(mediaProvider.notifier)
+        .addImages(files.map((file) => file?.path ?? "").toList());
+  }
+
+  bool _isCanUseCamera() {
+    if (kIsWeb || kIsWasm) {
+      return false;
+    } else {
+      if (Platform.isAndroid || Platform.isIOS) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+  }
+
   @override
   void initState() {
     super.initState();
@@ -56,7 +89,7 @@ class _PostingScreenState extends ConsumerState<PostingScreen> {
 
   @override
   void dispose() {
-    _controller.dispose();
+    _contentController.dispose();
     super.dispose();
   }
 
@@ -121,16 +154,34 @@ class _PostingScreenState extends ConsumerState<PostingScreen> {
                 Gaps.v20,
                 const PostingMediaListView(),
                 Gaps.v20,
-                RoundedButton(
-                  onTap: () => {},
-                  centerWidget: const Icon(
-                    Icons.add_a_photo_rounded,
-                    size: Sizes.size32,
-                  ),
+                Row(
+                  children: [
+                    Expanded(
+                      child: RoundedButton(
+                        onTap: _pickImagesFromGallery,
+                        centerWidget: const Icon(
+                          Icons.add_photo_alternate_rounded,
+                          size: Sizes.size32,
+                        ),
+                      ),
+                    ),
+                    if (_isCanUseCamera()) ...[
+                      Gaps.h10,
+                      Expanded(
+                        child: RoundedButton(
+                          onTap: _pickImagesFromCamera,
+                          centerWidget: const Icon(
+                            Icons.photo_camera,
+                            size: Sizes.size32,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ],
                 ),
                 Gaps.v20,
                 TextField(
-                  controller: _controller,
+                  controller: _contentController,
                   maxLines: 5,
                   decoration: InputDecoration(
                     border: const OutlineInputBorder(),

@@ -1,7 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:mission_diary/global/enum.dart';
 import 'package:mission_diary/models/media_item.dart';
+import 'package:mission_diary/util/generate_util.dart';
 import 'package:mission_diary/widgets/home/view_model/mission_view_model.dart';
 
 class MediaViewModel extends AutoDisposeAsyncNotifier<List<MediaItem>> {
@@ -34,6 +36,28 @@ class MediaViewModel extends AutoDisposeAsyncNotifier<List<MediaItem>> {
           return element;
         }
       }).toList(),
+    );
+  }
+
+  Future<void> addImages(List<String> filePathList) async {
+    if (state.value == null) return;
+    state = const AsyncValue.loading();
+    state = await AsyncValue.guard(
+      () async {
+        final newMedias = filePathList
+            .map(
+              (path) => MediaItem(
+                mediaId: uuid.v4(),
+                mediaType: MediaType.image,
+                mediaPathType: MediaPathType.file,
+                path: path,
+                metadata: {},
+                isSelected: true,
+              ),
+            )
+            .toList();
+        return [...newMedias, ...state.value!];
+      },
     );
   }
 }
