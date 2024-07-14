@@ -20,17 +20,19 @@ class ConstraintedBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Align(
-      alignment: alignment,
-      child: ConstrainedBox(
-        constraints:
-            constraints ?? const BoxConstraints(maxWidth: ScreenWidth.sm),
-        child: Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: horizontalPadding,
-            vertical: verticalPadding,
+    return SafeArea(
+      child: Align(
+        alignment: alignment,
+        child: ConstrainedBox(
+          constraints:
+              constraints ?? const BoxConstraints(maxWidth: ScreenWidth.sm),
+          child: Padding(
+            padding: EdgeInsets.symmetric(
+              horizontal: horizontalPadding,
+              vertical: verticalPadding,
+            ),
+            child: child,
           ),
-          child: child,
         ),
       ),
     );
