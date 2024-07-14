@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mission_diary/global/gaps.dart';
 import 'package:mission_diary/global/sizes.dart';
+import 'package:mission_diary/widgets/common/rounded_button.dart';
+import 'package:mission_diary/widgets/home/mission_edit_screen.dart';
 import 'package:mission_diary/widgets/home/view_model/mission_view_model.dart';
 import 'package:mission_diary/widgets/home/widgets/mission_item.dart';
 
@@ -18,10 +22,19 @@ class TodayMissionListView extends ConsumerWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Today Mission",
+                  "Today Missions",
                   style: Theme.of(context).textTheme.titleLarge?.copyWith(
                         fontWeight: FontWeight.w600,
                       ),
+                ),
+                Gaps.v20,
+                RoundedButton(
+                  onTap: () => context.pushNamed(MissionEditScreen.routeName),
+                  backgroundColor: Theme.of(context).colorScheme.primary,
+                  centerWidget: const FaIcon(
+                    FontAwesomeIcons.plus,
+                    color: Colors.white,
+                  ),
                 ),
                 Gaps.v20,
                 ListView.separated(

@@ -9,6 +9,7 @@ import 'package:mission_diary/widgets/authentication/repo/authentication_reposit
 import 'package:mission_diary/widgets/authentication/sign_up_screen.dart';
 import 'package:mission_diary/widgets/feed/feed_screen.dart';
 import 'package:mission_diary/widgets/home/home_screen.dart';
+import 'package:mission_diary/widgets/home/mission_edit_screen.dart';
 import 'package:mission_diary/widgets/main/main_navigator.dart';
 import 'package:mission_diary/widgets/posting/mission_status_screen.dart';
 import 'package:mission_diary/widgets/posting/posting_screen.dart';
@@ -69,6 +70,11 @@ final routerProvider = Provider(
           name: PostingScreen.routeName,
           path: PostingScreen.routePath,
           builder: (context, state) => const PostingScreen(),
+        ),
+        GoRoute(
+          path: MissionEditScreen.routePath,
+          name: MissionEditScreen.routeName,
+          builder: (context, state) => const MissionEditScreen(),
         ),
         ShellRoute(
           parentNavigatorKey: _rootNavigatorKey,
