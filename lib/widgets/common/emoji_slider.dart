@@ -21,8 +21,8 @@ class EmojiSlider extends StatefulWidget {
 class _EmojiSliderState extends State<EmojiSlider> {
   final GlobalKey _key = GlobalKey();
 
-  late final StateMachineController _controller;
-  late final SMINumber position;
+  StateMachineController? _controller;
+  SMINumber? position;
 
   late double _selectedEmoji = _getPosition(widget.score);
 
@@ -53,15 +53,32 @@ class _EmojiSliderState extends State<EmojiSlider> {
 
   void _onVisiblityChanged(VisibilityInfo info) {
     if (info.visibleFraction == 0) {
-      _controller.isActive = false;
+      _controller?.isActive = false;
     } else {
-      _controller.isActive = true;
+      _controller?.isActive = true;
+    }
+  }
+
+  void _onInitAnimation(Artboard art) {
+    _controller = StateMachineController.fromArtboard(art, "State Machine 1");
+    if (_controller != null) {
+      _controller!.addEventListener(onChangedEmoji);
+      _controller!.isActive = false;
+      art.addController(_controller!);
+
+      position = _controller!.findSMI("position");
+      position?.value = _getPosition(widget.score);
     }
   }
 
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   void dispose() {
-    _controller.dispose();
+    _controller?.dispose();
     super.dispose();
   }
 
@@ -75,16 +92,7 @@ class _EmojiSliderState extends State<EmojiSlider> {
         child: RiveAnimation.asset(
           "assets/animations/emoji_satisfaction_meter.riv",
           stateMachines: const ["State Machine 1"],
-          onInit: (art) {
-            _controller =
-                StateMachineController.fromArtboard(art, "State Machine 1")!;
-            _controller.addEventListener(onChangedEmoji);
-            _controller.isActive = false;
-            art.addController(_controller);
-
-            position = _controller.findSMI("position");
-            position.value = _getPosition(widget.score);
-          },
+          onInit: _onInitAnimation,
           fit: BoxFit.contain,
           placeHolder: Container(
             decoration: BoxDecoration(
