@@ -28,7 +28,7 @@ class CheckCircle extends StatelessWidget {
       child: FaIcon(
         FontAwesomeIcons.check,
         size: size / 2,
-        color: Colors.white,
+        color: isChecked ? Colors.white : Theme.of(context).colorScheme.surface,
       ),
     );
   }
