@@ -21,7 +21,9 @@ class CheckCircle extends StatelessWidget {
       alignment: Alignment.center,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
-        color: isChecked ? Theme.of(context).colorScheme.primary : Colors.white,
+        color: isChecked
+            ? Theme.of(context).colorScheme.primary
+            : Theme.of(context).colorScheme.surface,
       ),
       child: FaIcon(
         FontAwesomeIcons.check,
