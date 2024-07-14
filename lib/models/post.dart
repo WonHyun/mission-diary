@@ -16,6 +16,7 @@ class Post with _$Post {
     required int likes,
     required int commentCounts,
     required double score,
+    required bool isReported,
     required List<String> mediaUrlList,
     required List<String> commentsIdList,
     required Map<String, bool> missionStatusSummary,

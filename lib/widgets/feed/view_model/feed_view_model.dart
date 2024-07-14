@@ -33,6 +33,24 @@ class FeedViewModel extends AsyncNotifier<List<Post>> {
     );
   }
 
+  Future<String?> reportPost(String postId) async {
+    state = const AsyncValue.loading();
+    state = await AsyncValue.guard(
+      () async {
+        await _repository.reportPost(postId);
+        return [...state.value!.where((post) => post.postId != postId)];
+      },
+    );
+    if (state.hasError) {
+      if (state.error != null && state.error is FirebaseException) {
+        return (state.error as FirebaseException).message;
+      } else {
+        return "Unknown Exception during report, please try later.";
+      }
+    }
+    return null;
+  }
+
   Future<String?> deletePost(String postId) async {
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(

@@ -99,6 +99,7 @@ class MockGenerater {
           likes: faker.randomGenerator.integer(100),
           commentCounts: faker.randomGenerator.integer(100),
           score: score,
+          isReported: false,
           mediaUrlList: generateRandomMediaUrl(
             count: faker.randomGenerator.integer(4),
           ),

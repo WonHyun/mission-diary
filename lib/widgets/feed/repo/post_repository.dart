@@ -10,8 +10,11 @@ class PostRepository {
   DocumentSnapshot? lastDocument;
 
   Future<List<Post>> fetchPosts({bool isRefresh = false}) async {
-    var query =
-        _db.collection("posts").orderBy("createdAt", descending: true).limit(3);
+    var query = _db
+        .collection("posts")
+        .where("isReported", isEqualTo: false)
+        .orderBy("createdAt", descending: true)
+        .limit(3);
 
     if (lastDocument != null && !isRefresh) {
       query = query.startAfterDocument(lastDocument!);
@@ -30,6 +33,10 @@ class PostRepository {
         .toList();
 
     return posts;
+  }
+
+  Future<void> reportPost(String postId) async {
+    await _db.collection("posts").doc(postId).update({"isReported": true});
   }
 
   Future<void> deletePost(String postId) async {

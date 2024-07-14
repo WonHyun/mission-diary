@@ -29,10 +29,26 @@ class _PostViewState extends ConsumerState<PostView> {
     switch (menu) {
       case PopupMenu.edit:
       case PopupMenu.share:
-      case PopupMenu.report:
         return;
+      case PopupMenu.report:
+        _onReportPost();
       case PopupMenu.delete:
         _onDeletePost();
+    }
+  }
+
+  Future<void> _onReportPost() async {
+    final result =
+        await ref.read(feedProvider.notifier).reportPost(widget.post.postId);
+    if (mounted) {
+      if (result != null) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            showCloseIcon: true,
+            content: Text(result),
+          ),
+        );
+      }
     }
   }
 

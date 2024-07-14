@@ -37,6 +37,7 @@ class PostingViewModel extends AsyncNotifier<void> {
           likes: 0,
           commentCounts: 0,
           score: calculateScore(missions),
+          isReported: false,
           mediaUrlList: [],
           commentsIdList: [],
           missionStatusSummary: {
