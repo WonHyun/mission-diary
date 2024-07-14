@@ -4,9 +4,9 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mission_diary/global/gaps.dart';
 import 'package:mission_diary/global/sizes.dart';
-import 'package:mission_diary/models/media_item.dart';
 import 'package:mission_diary/widgets/common/constrainted_body.dart';
 import 'package:mission_diary/widgets/common/rounded_button.dart';
+import 'package:mission_diary/widgets/posting/view_model/media_view_model.dart';
 import 'package:mission_diary/widgets/posting/view_model/posting_view_model.dart';
 import 'package:mission_diary/widgets/posting/widgets/posting_media_list_view.dart';
 
@@ -24,12 +24,10 @@ class _PostingScreenState extends ConsumerState<PostingScreen> {
   late final TextEditingController _controller =
       TextEditingController(text: "");
 
-  final List<MediaItem> mediaList = [];
-
   Future<void> _onTapShare() async {
     final result = await ref.read(postingProvider.notifier).completePosting(
           content: _controller.text,
-          selectedMedia: mediaList,
+          selectedMedia: ref.read(mediaProvider).value ?? [],
         );
 
     if (result != null && mounted) {

@@ -4,25 +4,28 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mission_diary/models/media_item.dart';
 import 'package:mission_diary/widgets/home/view_model/mission_view_model.dart';
 
-class MediaViewModel extends AsyncNotifier<List<MediaItem>> {
+class MediaViewModel extends AutoDisposeAsyncNotifier<List<MediaItem>> {
   @override
   FutureOr<List<MediaItem>> build() {
-    return collectMediaItemFromMissions();
+    return _collectMediaItemFromMissions();
   }
 
-  List<MediaItem> collectMediaItemFromMissions() {
+  List<MediaItem> _collectMediaItemFromMissions() {
     final missions = ref.read(missionProvider).value!;
     return missions.expand((mission) => mission.mediaList).toList();
   }
 
-  Future<void> deleteMedia(MediaItem media) async {
+  void deleteMedia(MediaItem media) {
     if (state.value == null) return;
     state = AsyncValue.data(
-      state.value!.where((media) => media.mediaId == media.mediaId).toList(),
+      state.value!
+          .where((element) => element.mediaId != media.mediaId)
+          .toList(),
     );
   }
 }
 
-final mediaProvider = AsyncNotifierProvider<MediaViewModel, List<MediaItem>>(
+final mediaProvider =
+    AutoDisposeAsyncNotifierProvider<MediaViewModel, List<MediaItem>>(
   () => MediaViewModel(),
 );

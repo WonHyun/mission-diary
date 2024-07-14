@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:mission_diary/global/enum.dart';
 import 'package:mission_diary/global/gaps.dart';
 import 'package:mission_diary/models/post.dart';
+import 'package:mission_diary/widgets/common/safe_image.dart';
 
 class PostMediaListView extends StatelessWidget {
   const PostMediaListView({
@@ -29,22 +31,9 @@ class PostMediaListView extends StatelessWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
             ),
-            child: Image.network(
-              post.mediaUrlList[index],
-              fit: BoxFit.cover,
-              loadingBuilder: (context, child, loadingProgress) {
-                if (loadingProgress == null) return child;
-                return Center(
-                  child: CircularProgressIndicator(
-                    value: loadingProgress.expectedTotalBytes != null
-                        ? loadingProgress.cumulativeBytesLoaded /
-                            loadingProgress.expectedTotalBytes!
-                        : null,
-                  ),
-                );
-              },
-              errorBuilder: (context, error, stackTrace) =>
-                  const Icon(Icons.image_not_supported_rounded),
+            child: SafeImage(
+              path: post.mediaUrlList[index],
+              pathType: MediaPathType.url,
             ),
           );
         },
