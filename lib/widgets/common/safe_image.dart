@@ -8,11 +8,15 @@ class SafeImage extends StatelessWidget {
     required this.path,
     required this.pathType,
     this.fit = BoxFit.cover,
+    this.width,
+    this.height,
   });
 
   final String path;
   final MediaPathType pathType;
   final BoxFit fit;
+  final double? width;
+  final double? height;
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +24,8 @@ class SafeImage extends StatelessWidget {
         ? Image.network(
             path,
             fit: fit,
+            width: width,
+            height: height,
             loadingBuilder: (context, child, loadingProgress) {
               if (loadingProgress == null) return child;
               return Center(
@@ -31,14 +37,18 @@ class SafeImage extends StatelessWidget {
                 ),
               );
             },
-            errorBuilder: (context, error, stackTrace) =>
-                const Icon(Icons.image_not_supported_rounded),
+            errorBuilder: (context, error, stackTrace) => const Center(
+              child: Icon(Icons.image_not_supported_rounded),
+            ),
           )
         : Image.file(
             File(path),
             fit: fit,
-            errorBuilder: (context, error, stackTrace) =>
-                const Icon(Icons.image_not_supported_rounded),
+            width: width,
+            height: height,
+            errorBuilder: (context, error, stackTrace) => const Center(
+              child: Icon(Icons.image_not_supported_rounded),
+            ),
           );
   }
 }
