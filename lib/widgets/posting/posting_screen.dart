@@ -85,7 +85,7 @@ class _PostingScreenState extends ConsumerState<PostingScreen> {
                         ),
                   ),
                 ),
-                Gaps.v20,
+                Gaps.v32,
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -120,13 +120,21 @@ class _PostingScreenState extends ConsumerState<PostingScreen> {
                 ),
                 Gaps.v20,
                 const PostingMediaListView(),
-                Gaps.v36,
+                Gaps.v20,
+                RoundedButton(
+                  onTap: () => {},
+                  centerWidget: const Icon(
+                    Icons.add_a_photo_rounded,
+                    size: Sizes.size32,
+                  ),
+                ),
+                Gaps.v20,
                 TextField(
                   controller: _controller,
-                  maxLines: 3,
+                  maxLines: 5,
                   decoration: InputDecoration(
                     border: const OutlineInputBorder(),
-                    hintText: "Let's write something.",
+                    hintText: "Are you satisfied today?",
                     hintStyle: const TextStyle(color: Colors.grey),
                     labelText: "How are you today?",
                     labelStyle: const TextStyle(color: Colors.grey),
@@ -134,7 +142,7 @@ class _PostingScreenState extends ConsumerState<PostingScreen> {
                         color: Theme.of(context).colorScheme.inverseSurface),
                   ),
                 ),
-                Gaps.v48,
+                Gaps.v36,
                 RoundedButton(
                   onTap: _onTapShare,
                   text: "Share",
