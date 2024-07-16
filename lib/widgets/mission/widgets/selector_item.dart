@@ -8,6 +8,7 @@ class SelectorItem extends StatelessWidget {
     required this.text,
     this.width = 70,
     this.height = 30,
+    this.isActive = true,
   });
 
   final Function() onTap;
@@ -15,11 +16,12 @@ class SelectorItem extends StatelessWidget {
   final String text;
   final double? width;
   final double? height;
+  final bool isActive;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onTap,
+      onTap: isActive ? onTap : null,
       child: AnimatedContainer(
         width: width,
         height: height,
@@ -28,12 +30,16 @@ class SelectorItem extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(5),
           border: Border.all(
-            color: isSelected
-                ? Theme.of(context).colorScheme.primary
-                : Theme.of(context).colorScheme.inverseSurface,
+            color: isActive
+                ? isSelected
+                    ? Theme.of(context).colorScheme.primary
+                    : Theme.of(context).colorScheme.inverseSurface
+                : Colors.grey,
           ),
           color: isSelected
-              ? Theme.of(context).colorScheme.primary
+              ? isActive
+                  ? Theme.of(context).colorScheme.primary
+                  : Colors.grey
               : Theme.of(context).colorScheme.surface,
         ),
         child: Text(
@@ -41,7 +47,9 @@ class SelectorItem extends StatelessWidget {
           style: TextStyle(
             color: isSelected
                 ? Colors.white
-                : Theme.of(context).colorScheme.inverseSurface,
+                : isActive
+                    ? Theme.of(context).colorScheme.inverseSurface
+                    : Colors.grey,
           ),
         ),
       ),

@@ -25,6 +25,7 @@ class MissionDurationEditView extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(missionEditProvider(mission.type));
     final notifier = ref.read(missionEditProvider(mission.type).notifier);
+    final isActive = !(state.value?.isAllDay ?? false);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -48,6 +49,7 @@ class MissionDurationEditView extends ConsumerWidget {
                   onTap: () => notifier.updateDuration(duration),
                   isSelected: isSelected,
                   text: "${duration.inMinutes}m",
+                  isActive: isActive,
                 );
               },
             ),
