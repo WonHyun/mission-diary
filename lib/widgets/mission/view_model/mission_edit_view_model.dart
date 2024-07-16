@@ -13,7 +13,7 @@ class MissionEditViewModel
   late final MissionRepository _repository;
 
   static const minuteInterval = 5;
-  static const minDuration = Duration(minutes: 15);
+  static const minDuration = Duration(minutes: 5);
 
   @override
   FutureOr<Mission> build(MissionType arg) {
