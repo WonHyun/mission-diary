@@ -22,37 +22,33 @@ class MissionSettingEditView extends ConsumerWidget {
         : Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text("Setting"),
-              Row(
-                children: [
-                  Expanded(
-                    child: CheckboxListTile(
-                      contentPadding: const EdgeInsets.symmetric(
-                        horizontal: Sizes.size5,
-                      ),
-                      title: const Text("Need a Proof Photos"),
-                      controlAffinity: ListTileControlAffinity.leading,
-                      dense: true,
-                      value: state.value?.isNeedPhoto ?? false,
-                      onChanged: (value) =>
-                          notifier.updateIsNeedPhoto(value ?? false),
+              Text(
+                "Mission Settings",
+                style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                      fontWeight: FontWeight.w600,
                     ),
-                  ),
-                  Gaps.h10,
-                  Expanded(
-                    child: CheckboxListTile(
-                      contentPadding: const EdgeInsets.symmetric(
-                        horizontal: Sizes.size3,
-                      ),
-                      title: const Text("Private Missions"),
-                      controlAffinity: ListTileControlAffinity.leading,
-                      dense: true,
-                      value: state.value?.isPrivate ?? false,
-                      onChanged: (value) =>
-                          notifier.updateIsPrivate(value ?? false),
-                    ),
-                  ),
-                ],
+              ),
+              Gaps.v10,
+              CheckboxListTile(
+                contentPadding: const EdgeInsets.symmetric(
+                  horizontal: Sizes.size5,
+                ),
+                title: const Text("Need a Proof Photos"),
+                controlAffinity: ListTileControlAffinity.leading,
+                dense: true,
+                value: state.value?.isNeedPhoto ?? false,
+                onChanged: (value) =>
+                    notifier.updateIsNeedPhoto(value ?? false),
+              ),
+              CheckboxListTile(
+                contentPadding: const EdgeInsets.symmetric(
+                  horizontal: Sizes.size5,
+                ),
+                title: const Text("Private Missions"),
+                controlAffinity: ListTileControlAffinity.leading,
+                dense: true,
+                value: state.value?.isPrivate ?? false,
+                onChanged: (value) => notifier.updateIsPrivate(value ?? false),
               ),
             ],
           );

@@ -29,10 +29,16 @@ class MissionDurationEditView extends ConsumerWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text("How Long Times?"),
-        Gaps.v10,
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+        Text(
+          "How Long Times",
+          style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                fontWeight: FontWeight.w600,
+              ),
+        ),
+        Gaps.v16,
+        Wrap(
+          spacing: 5,
+          runSpacing: 5,
           children: [
             ...durationList.map(
               (duration) {

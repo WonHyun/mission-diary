@@ -14,6 +14,7 @@ class Mission with _$Mission {
     required MissionType type,
     required bool isCompleted,
     required bool isNeedPhoto,
+    required bool isAllDay,
     required MissionFrequency frequency,
     required String title,
     required String description,

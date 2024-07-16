@@ -27,6 +27,7 @@ class MissionEditViewModel
       type: arg,
       isCompleted: false,
       isNeedPhoto: false,
+      isAllDay: false,
       frequency: MissionFrequency.once,
       title: "",
       description: "",
@@ -61,7 +62,12 @@ class MissionEditViewModel
 
   void updateDuration(Duration duration) {
     if (state.value == null) return;
-    state = AsyncValue.data(state.value!.copyWith(duration: duration));
+    state = AsyncValue.data(
+      state.value!.copyWith(
+          duration: duration,
+          startAt: adjustMinute(DateTime.now(), minuteInterval),
+          endAt: adjustMinute(DateTime.now().add(duration), minuteInterval)),
+    );
   }
 
   void updateIsNeedPhoto(bool isNeedPhoto) {
@@ -72,6 +78,28 @@ class MissionEditViewModel
   void updateIsPrivate(bool isPrivate) {
     if (state.value == null) return;
     state = AsyncValue.data(state.value!.copyWith(isPrivate: isPrivate));
+  }
+
+  void updateIsAllDay(bool isAllDay) {
+    if (state.value == null) return;
+    if (isAllDay) {
+      final now = DateTime.now();
+      state = AsyncValue.data(
+        state.value!.copyWith(
+          isAllDay: isAllDay,
+          startAt: DateTime(now.year, now.month, now.day),
+          endAt: DateTime(now.year, now.month, now.day, 23, 59, 59),
+        ),
+      );
+    } else {
+      state = AsyncValue.data(
+        state.value!.copyWith(
+            isAllDay: isAllDay,
+            startAt: adjustMinute(DateTime.now(), minuteInterval),
+            endAt: adjustMinute(
+                DateTime.now().add(state.value!.duration), minuteInterval)),
+      );
+    }
   }
 
   void updateFrequency(MissionFrequency frequency) {
@@ -89,8 +117,8 @@ class MissionEditViewModel
       state = AsyncValue.data(
         state.value!.copyWith(
             startAt: adjustMinute(DateTime.now(), minuteInterval),
-            endAt:
-                adjustMinute(DateTime.now().add(minDuration), minuteInterval)),
+            endAt: adjustMinute(
+                DateTime.now().add(state.value!.duration), minuteInterval)),
       );
       return "The start date cannot be later than the current date. It will be adjusted automatically.";
     }

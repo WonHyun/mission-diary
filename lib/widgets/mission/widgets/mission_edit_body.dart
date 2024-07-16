@@ -81,15 +81,21 @@ class _MissionEditBodyState extends ConsumerState<MissionEditBody> {
                           tag: mission.type.name,
                           child: MissionTypeListItem(type: mission.type),
                         ),
-                  Gaps.v24,
+                  Gaps.v32,
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text("Title"),
+                      Text(
+                        "Title",
+                        style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                              fontWeight: FontWeight.w600,
+                            ),
+                      ),
                       TextField(
                         controller: _titleController,
                         onChanged: notifier.updateTitle,
                         decoration: const InputDecoration(
+                          contentPadding: EdgeInsets.only(bottom: 10),
                           labelText: "Mission Title",
                           labelStyle: TextStyle(
                             color: Colors.grey,
@@ -97,13 +103,19 @@ class _MissionEditBodyState extends ConsumerState<MissionEditBody> {
                           floatingLabelBehavior: FloatingLabelBehavior.never,
                         ),
                       ),
-                      Gaps.v20,
-                      const Text("Description"),
+                      Gaps.v28,
+                      Text(
+                        "Description",
+                        style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                              fontWeight: FontWeight.w600,
+                            ),
+                      ),
                       TextField(
                         minLines: 1,
                         maxLines: 5,
                         controller: _descriptionController,
                         decoration: const InputDecoration(
+                          contentPadding: EdgeInsets.only(bottom: 10),
                           labelText: "What you do?",
                           labelStyle: TextStyle(
                             color: Colors.grey,
@@ -111,13 +123,13 @@ class _MissionEditBodyState extends ConsumerState<MissionEditBody> {
                           floatingLabelBehavior: FloatingLabelBehavior.never,
                         ),
                       ),
-                      Gaps.v20,
+                      Gaps.v28,
                       MissionDateEditView(mission: mission),
-                      Gaps.v20,
+                      Gaps.v28,
                       MissionDurationEditView(mission: mission),
-                      Gaps.v20,
+                      Gaps.v28,
                       MissionFrequencyEditView(mission: mission),
-                      Gaps.v20,
+                      Gaps.v28,
                       MissionSettingEditView(mission: mission),
                     ],
                   ),

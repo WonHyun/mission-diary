@@ -55,6 +55,7 @@ class MockGenerater {
               .values[faker.randomGenerator.integer(MissionType.values.length)],
           isCompleted: faker.randomGenerator.boolean(),
           isNeedPhoto: faker.randomGenerator.boolean(),
+          isAllDay: false,
           frequency: MissionFrequency.values[
               faker.randomGenerator.integer(MissionFrequency.values.length)],
           title: faker.sport.name(),

@@ -6,8 +6,8 @@ class SelectorItem extends StatelessWidget {
     required this.onTap,
     required this.isSelected,
     required this.text,
-    this.width,
-    this.height,
+    this.width = 70,
+    this.height = 30,
   });
 
   final Function() onTap;
@@ -24,10 +24,6 @@ class SelectorItem extends StatelessWidget {
         width: width,
         height: height,
         duration: const Duration(milliseconds: 200),
-        padding: const EdgeInsets.symmetric(
-          horizontal: 10,
-          vertical: 5,
-        ),
         alignment: Alignment.center,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(5),

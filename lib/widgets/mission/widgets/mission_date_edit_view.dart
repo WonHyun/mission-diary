@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:mission_diary/global/gaps.dart';
 import 'package:mission_diary/global/sizes.dart';
 import 'package:mission_diary/models/mission.dart';
 import 'package:mission_diary/util/date_util.dart';
@@ -16,11 +17,19 @@ class MissionDateEditView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(missionEditProvider(mission.type));
-    // final notifier = ref.read(missionEditProvider(mission.type).notifier);
+    final notifier = ref.read(missionEditProvider(mission.type).notifier);
     return state.value == null
         ? const SizedBox.shrink()
         : Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              Text(
+                "When",
+                style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                      fontWeight: FontWeight.w600,
+                    ),
+              ),
+              Gaps.v16,
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -42,6 +51,7 @@ class MissionDateEditView extends ConsumerWidget {
                   ),
                 ],
               ),
+              Gaps.v10,
               CheckboxListTile(
                 title: const Text("All-Day Missions"),
                 contentPadding: const EdgeInsets.symmetric(
@@ -49,8 +59,8 @@ class MissionDateEditView extends ConsumerWidget {
                 ),
                 controlAffinity: ListTileControlAffinity.leading,
                 dense: true,
-                value: false,
-                onChanged: (value) => {},
+                value: state.value?.isAllDay ?? false,
+                onChanged: (value) => notifier.updateIsAllDay(value ?? false),
               ),
             ],
           );
