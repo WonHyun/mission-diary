@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 enum BoxName {
   settings,
+  missions,
 }
 
 enum MainNavigatorType {

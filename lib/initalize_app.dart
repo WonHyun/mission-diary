@@ -29,5 +29,8 @@ class InitalizeApp {
     if (!Hive.isBoxOpen(BoxName.settings.name)) {
       await Hive.openBox(BoxName.settings.name);
     }
+    if (!Hive.isBoxOpen(BoxName.missions.name)) {
+      await Hive.openBox(BoxName.missions.name);
+    }
   }
 }

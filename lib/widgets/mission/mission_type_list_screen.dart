@@ -15,43 +15,33 @@ class MissionTypeListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          "Mission Type",
+          style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                fontWeight: FontWeight.w600,
+              ),
+        ),
+      ),
       body: ConstraintedBody(
         alignment: Alignment.topCenter,
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              AppBar(
-                title: Text(
-                  "Mission Type",
-                  style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                        fontWeight: FontWeight.w600,
-                      ),
+        child: ListView.separated(
+          padding: const EdgeInsets.only(bottom: 100),
+          separatorBuilder: (context, index) => Gaps.v10,
+          itemCount: MissionType.values.length,
+          itemBuilder: (context, index) {
+            final type = MissionType.values[index];
+            return Hero(
+              tag: type.name,
+              child: MissionTypeListItem(
+                type: type,
+                onTap: () => context.pushNamed(
+                  MissionAddScreen.routeName,
+                  extra: type,
                 ),
               ),
-              Gaps.v32,
-              ListView.separated(
-                padding: const EdgeInsets.only(bottom: 100),
-                shrinkWrap: true,
-                primary: false,
-                separatorBuilder: (context, index) => Gaps.v10,
-                itemCount: MissionType.values.length,
-                itemBuilder: (context, index) {
-                  final type = MissionType.values[index];
-                  return Hero(
-                    tag: type.name,
-                    child: MissionTypeListItem(
-                      type: type,
-                      onTap: () => context.pushNamed(
-                        MissionAddScreen.routeName,
-                        extra: type,
-                      ),
-                    ),
-                  );
-                },
-              ),
-            ],
-          ),
+            );
+          },
         ),
       ),
     );

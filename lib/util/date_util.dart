@@ -12,6 +12,10 @@ String getHHMM(DateTime time) {
   return DateFormat("HH:mm").format(time);
 }
 
+String getHHMMapm(DateTime time) {
+  return DateFormat("hh:mm a").format(time);
+}
+
 String getTimeAgoFormat(DateTime? time) {
   if (time == null) return "";
   final diff = DateTime.now().difference(time);
@@ -31,4 +35,14 @@ String getTimeAgoFormat(DateTime? time) {
   } else {
     return 'now';
   }
+}
+
+DateTime adjustMinute(DateTime now, int minuteInterval) {
+  int roundedMinutes = ((now.minute / minuteInterval).ceil()) * minuteInterval;
+
+  if (roundedMinutes == 60 ||
+      (now.hour == 23 && now.minute >= 60 - minuteInterval)) {
+    return DateTime(now.year, now.month, now.day + 1, 0, 0);
+  }
+  return DateTime(now.year, now.month, now.day, now.hour, roundedMinutes);
 }
