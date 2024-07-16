@@ -15,17 +15,21 @@ class PostMissionListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.separated(
-      shrinkWrap: true,
-      primary: false,
-      separatorBuilder: (context, index) => Gaps.v5,
-      itemCount: missionList.length,
-      itemBuilder: (context, index) {
-        return PostMissionListItem(
-          title: missionList[index],
-          isCompleted: missionStatus[missionList[index]] ?? false,
-        );
-      },
+    return Center(
+      child: Wrap(
+        spacing: 5,
+        runSpacing: 5,
+        children: [
+          ...missionList.map(
+            (mission) {
+              return PostMissionListItem(
+                title: mission,
+                isCompleted: missionStatus[mission] ?? false,
+              );
+            },
+          ),
+        ],
+      ),
     );
   }
 }
@@ -43,6 +47,7 @@ class PostMissionListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      constraints: const BoxConstraints(maxWidth: 200),
       padding: const EdgeInsets.symmetric(
         horizontal: Sizes.size5,
         vertical: Sizes.size5,
@@ -53,11 +58,20 @@ class PostMissionListItem extends StatelessWidget {
             : ThemeColors.lightCoral,
         borderRadius: BorderRadius.circular(10),
       ),
+      alignment: Alignment.center,
       child: Row(
         children: [
           Checkbox(
+            fillColor: WidgetStateProperty.resolveWith(
+              (states) {
+                if (!states.contains(WidgetState.selected)) {
+                  return Colors.transparent;
+                }
+                return Theme.of(context).colorScheme.primary;
+              },
+            ),
             value: isCompleted,
-            onChanged: (value) => {},
+            onChanged: null,
           ),
           Gaps.h5,
           Expanded(
