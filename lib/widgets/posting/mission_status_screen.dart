@@ -10,7 +10,7 @@ import 'package:mission_diary/widgets/common/constrainted_body.dart';
 import 'package:mission_diary/widgets/common/rank_icon.dart';
 import 'package:mission_diary/widgets/common/rounded_button.dart';
 import 'package:mission_diary/widgets/feed/feed_screen.dart';
-import 'package:mission_diary/widgets/home/view_model/home_view_model.dart';
+import 'package:mission_diary/widgets/home/view_model/mission_list_view_model.dart';
 import 'package:mission_diary/widgets/posting/posting_screen.dart';
 import 'package:mission_diary/widgets/common/emoji_slider.dart';
 

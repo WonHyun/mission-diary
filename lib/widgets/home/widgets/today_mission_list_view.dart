@@ -5,7 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:mission_diary/global/gaps.dart';
 import 'package:mission_diary/global/sizes.dart';
 import 'package:mission_diary/widgets/common/rounded_button.dart';
-import 'package:mission_diary/widgets/home/view_model/home_view_model.dart';
+import 'package:mission_diary/widgets/home/view_model/mission_list_view_model.dart';
 import 'package:mission_diary/widgets/home/widgets/mission_item.dart';
 import 'package:mission_diary/widgets/mission/mission_type_list_screen.dart';
 

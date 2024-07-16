@@ -7,7 +7,7 @@ import 'package:mission_diary/models/post.dart';
 import 'package:mission_diary/util/calculate_util.dart';
 import 'package:mission_diary/util/generate_util.dart';
 import 'package:mission_diary/widgets/feed/view_model/feed_view_model.dart';
-import 'package:mission_diary/widgets/home/view_model/home_view_model.dart';
+import 'package:mission_diary/widgets/home/view_model/mission_list_view_model.dart';
 import 'package:mission_diary/widgets/posting/repo/posting_repository.dart';
 import 'package:mission_diary/widgets/user_profile/view_model/user_profile_view_model.dart';
 

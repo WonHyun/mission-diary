@@ -5,6 +5,7 @@ import 'package:mission_diary/global/enum.dart';
 import 'package:mission_diary/models/mission.dart';
 import 'package:mission_diary/util/date_util.dart';
 import 'package:mission_diary/util/generate_util.dart';
+import 'package:mission_diary/widgets/home/view_model/mission_list_view_model.dart';
 import 'package:mission_diary/widgets/mission/repo/mission_repository.dart';
 import 'package:mission_diary/widgets/user_profile/view_model/user_profile_view_model.dart';
 
@@ -126,6 +127,7 @@ class MissionEditViewModel
     state = await AsyncValue.guard(
       () async {
         await _repository.saveMission(state.value!);
+        ref.read(missionListProvider.notifier).refreshMissions();
         return state.value!;
       },
     );
