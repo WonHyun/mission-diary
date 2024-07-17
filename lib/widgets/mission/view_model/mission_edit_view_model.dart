@@ -114,7 +114,10 @@ class MissionEditViewModel
       return "Unknown Exception during create mission, please try later.";
     }
 
-    if (state.value!.startAt.isBefore(DateTime.now())) {
+    final now = DateTime.now();
+    if (!state.value!.isAllDay &&
+        state.value!.startAt.isBefore(
+            DateTime(now.year, now.month, now.day, now.hour, now.minute, 59))) {
       state = AsyncValue.data(
         state.value!.copyWith(
             startAt: adjustMinute(DateTime.now(), minuteInterval),
