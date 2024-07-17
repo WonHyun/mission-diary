@@ -56,18 +56,21 @@ class _PostingScreenState extends ConsumerState<PostingScreen> {
 
   Future<void> _pickImagesFromGallery() async {
     final files = await ImagePicker().pickMultiImage();
-    await ref
-        .read(mediaProvider.notifier)
-        .addImages(files.map((file) => file.path).toList());
+    if (files.isNotEmpty) {
+      await ref
+          .read(mediaProvider.notifier)
+          .addImages(files.map((file) => file.path).toList());
+    }
   }
 
-  Future<void> _pickImagesFromCamera() async {
-    final files = [
-      await ImagePicker().pickImage(source: ImageSource.camera),
-    ];
-    await ref
-        .read(mediaProvider.notifier)
-        .addImages(files.map((file) => file?.path ?? "").toList());
+  Future<void> _pickImageFromCamera() async {
+    final file = await ImagePicker().pickImage(source: ImageSource.camera);
+
+    if (file != null) {
+      await ref
+          .read(mediaProvider.notifier)
+          .addImages([file].map((file) => file.path).toList());
+    }
   }
 
   bool _isCanUseCamera() {
@@ -169,7 +172,7 @@ class _PostingScreenState extends ConsumerState<PostingScreen> {
                       Gaps.h10,
                       Expanded(
                         child: RoundedButton(
-                          onTap: _pickImagesFromCamera,
+                          onTap: _pickImageFromCamera,
                           centerWidget: const Icon(
                             Icons.photo_camera,
                             size: Sizes.size32,
